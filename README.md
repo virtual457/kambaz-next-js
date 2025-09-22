@@ -2,6 +2,10 @@
 
 This is a Next.js application for a simple Learning Management System (LMS) UI used in labs. It includes a read-only Courses area and an Assignment Editor screen.
 
+### Live Demo
+
+Deployed on Vercel: https://kambaz-next-js-phi-lyart.vercel.app/
+
 ### Prerequisites
 
 - Node.js 18+
