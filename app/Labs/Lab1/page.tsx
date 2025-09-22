@@ -167,11 +167,11 @@ export default function Lab1() {
         <h4>Image tag</h4>
         Loading an image from the internet: <br />
         <img id="wd-starship" width="400px"
-          src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" />
+          src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" alt="SpaceX Starship on launch pad" />
         <br />
         Loading a local image:
         <br />
-        <img id="wd-teslabot" src="/Images/teslabot.jpeg" height="200px" />
+        <img id="wd-teslabot" src="/Images/teslabot.jpeg" height="200px" alt="Tesla humanoid robot (Teslabot)" />
       </div>
 
       <div id="wd-forms">
