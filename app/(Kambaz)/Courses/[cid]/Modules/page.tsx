@@ -18,6 +18,13 @@ export default function Modules() {
                   <li className="wd-content-item">Learn what is Web Development</li>
                 </ul>
               </li>
+              <li className="wd-lesson">
+                <span className="wd-title">GETTING STARTED</span>
+                <ul className="wd-content">
+                  <li className="wd-content-item">Set up the development environment</li>
+                  <li className="wd-content-item">Create your first Next.js app</li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li className="wd-module">

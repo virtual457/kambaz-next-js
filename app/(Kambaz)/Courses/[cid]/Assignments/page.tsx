@@ -40,6 +40,18 @@ export default function Assignments() {
             </Link>
           </li>
         </ul>
+        <h3 id="wd-quizzes-title">QUIZZES 20% of Total <button>+</button></h3>
+        <ul id="wd-quiz-list">
+          <li className="wd-assignment-list-item">Quiz 1 - HTML Basics</li>
+        </ul>
+        <h3 id="wd-exams-title">EXAMS 20% of Total <button>+</button></h3>
+        <ul id="wd-exam-list">
+          <li className="wd-assignment-list-item">Midterm Exam</li>
+        </ul>
+        <h3 id="wd-project-title">PROJECT 20% of Total <button>+</button></h3>
+        <ul id="wd-project-list">
+          <li className="wd-assignment-list-item">Final Project</li>
+        </ul>
       </div>
     );
   }
