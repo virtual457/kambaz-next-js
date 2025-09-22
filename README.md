@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Learning Management System (Kambaz) — Next.js App Router
 
-## Getting Started
+This is a Next.js application for a simple Learning Management System (LMS) UI used in labs. It includes a read-only Courses area and an Assignment Editor screen.
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm (or yarn/pnpm/bun)
+
+### Install
+
+```bash
+npm install
+```
+
+### Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Key Screens / Navigation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Courses → Assignments list: `/(Kambaz)/Courses/1234/Assignments`
+- Assignment Editor: click any assignment title in the list, e.g. `/Courses/1234/Assignments/123`
 
-## Learn More
+The editor lives at `app/(Kambaz)/Courses/[cid]/Assignments/[aid]/page.tsx`. It includes:
 
-To learn more about Next.js, take a look at the following resources:
+- Text inputs: `wd-name`, `wd-assign-to`
+- Number/text: `wd-points`
+- Selects: `wd-group`, `wd-display-grade-as`, `wd-submission-type`
+- Checkboxes: `wd-text-entry`, `wd-website-url`, `wd-media-recordings`, `wd-student-annotation`, `wd-file-upload`
+- Dates: `wd-due-date`, `wd-available-from`, `wd-available-until`
+- Buttons: `wd-cancel`, `wd-save`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All labels are associated with inputs via `htmlFor` so clicking a label focuses/toggles its field.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Project Structure
 
-## Deploy on Vercel
+- `app/(Kambaz)/Courses/[cid]/Assignments/page.tsx` — assignments list with links
+- `app/(Kambaz)/Courses/[cid]/Assignments/[aid]/page.tsx` — assignment editor form
+- `app/Labs` — lab navigation and samples
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This repo is oriented for UI exercises; there’s no backend. The Save/Cancel buttons are static placeholders.

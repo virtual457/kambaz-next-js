@@ -208,6 +208,23 @@ export default function Lab1() {
           id="wd-all-good">
           Hello World!
         </button>
+
+        <h5 id="wd-radio-buttons">Radio buttons</h5>
+
+        <label>Favorite movie genre:</label><br />
+
+        <input type="radio" name="radio-genre" id="wd-radio-comedy" />
+        <label htmlFor="wd-radio-comedy">Comedy</label><br />
+
+        <input type="radio" name="radio-genre" id="wd-radio-drama" />
+        <label htmlFor="wd-radio-drama">Drama</label><br />
+
+        <input type="radio" name="radio-genre" id="wd-radio-scifi" />
+        <label htmlFor="wd-radio-scifi">Science Fiction</label><br />
+        <input type="radio" name="radio-genre" id="wd-radio-fantasy" />
+        <label htmlFor="wd-radio-fantasy">Fantasy</label>
+
+
         <h5 id="wd-checkboxes">Checkboxes</h5>
         <label>Favorite movie genre:</label><br />
         <input type="checkbox" name="check-genre" id="wd-chkbox-comedy" />
@@ -259,12 +276,12 @@ export default function Lab1() {
           defaultValue="2000-01-21"
           id="wd-text-fields-dob" /><br />
         <h4>Anchor tag</h4>
-        Please 
+        Please
         <a href="https://www.lipsum.com" id="wd-lipsum">click here</a>
-         to get dummy text<br />
-         Please 
+        to get dummy text<br />
+        Please
         <a href="https://github.com/virtual457/kambaz-next-js" id="wd-github">click here</a>
-         to get dummy text<br />
+        to get dummy text<br />
       </div>
     </div>
   );
