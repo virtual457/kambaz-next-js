@@ -5,6 +5,7 @@ import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
 import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function KambazNavigation() {
@@ -30,7 +31,7 @@ export default function KambazNavigation() {
         target="_blank" 
         href="https://www.northeastern.edu/" 
         id="wd-neu-link">
-        <img src="/images/NEU.png" width="50px" alt="NEU" />
+        <Image src="/images/NEU.png" width={50} height={50} alt="NEU Logo" />
       </ListGroupItem>
       <br />
 
