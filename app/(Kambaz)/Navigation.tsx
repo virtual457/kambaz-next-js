@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 
 export default function KambazNavigation() {
   const pathname = usePathname();
+  console.log(pathname.includes("Account"));
   const links = [
     { label: "Dashboard", path: "/Dashboard", icon: AiOutlineDashboard },
     { label: "Courses", path: "/Dashboard", icon: LiaBookSolid },
@@ -33,7 +34,7 @@ export default function KambazNavigation() {
       </ListGroupItem>
       <br />
 
-      <ListGroupItem className="border-0 bg-black text-center">
+      <ListGroupItem className={`border-0 text-center ${pathname.includes("Account") ? "bg-white" : "bg-black"}`}>
         <Link 
           href="/Account" 
           id="wd-account-link" 
@@ -49,22 +50,7 @@ export default function KambazNavigation() {
       </ListGroupItem>
       <br />
 
-      <ListGroupItem 
-        as={Link}
-        href="/Dashboard"
-        id="wd-dashboard-link"
-        className={`border-0 text-center ${
-          pathname.includes("Dashboard") ? "bg-white" : "bg-black"
-        }`}>
-        <AiOutlineDashboard className="fs-1 text-danger" />
-        <br />
-        <span className={pathname.includes("Dashboard") ? "text-danger" : "text-white"}>
-          Dashboard
-        </span>
-      </ListGroupItem>
-      <br />
-
-      {links.slice(1).map((link) => (
+      {links.map((link) => (
         <>
           <ListGroupItem 
             key={link.path}
