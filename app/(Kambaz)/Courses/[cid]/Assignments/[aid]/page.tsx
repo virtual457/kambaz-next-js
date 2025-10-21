@@ -1,13 +1,24 @@
 "use client";
-import { Form, FormControl, FormLabel, FormSelect, FormCheck, Button, Row, Col } from "react-bootstrap";
+import { FormControl, FormLabel, FormSelect, FormCheck, Button, Row, Col } from "react-bootstrap";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import * as db from "../../../../Database";
 
+interface Assignment {
+  _id: string;
+  title: string;
+  description: string;
+  points: number;
+  dueDate: string;
+  availableFromDate: string;
+  availableUntilDate: string;
+  course: string;
+}
+
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
-  const assignments = db.assignments;
-  const assignment = assignments.find((assignment: any) => assignment._id === aid);
+  const assignments = db.assignments as Assignment[];
+  const assignment = assignments.find((assignment) => assignment._id === aid);
   
   if (!assignment) {
     return <div>Assignment not found</div>;
