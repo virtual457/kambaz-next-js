@@ -36,12 +36,12 @@ export default function Dashboard() {
     ? courses.map((course): CourseWithEnrollment => ({
         ...course,
         enrolled: enrollments.some(
-          (e) => e.user === currentUser?._id && e.course === course._id
+          (e: Enrollment) => e.user === currentUser?._id && e.course === course._id
         ),
       }))
     : courses.filter((course) =>
         enrollments.some(
-          (e) => e.user === currentUser?._id && e.course === course._id
+          (e: Enrollment) => e.user === currentUser?._id && e.course === course._id
         )
       );
   
@@ -59,7 +59,7 @@ export default function Dashboard() {
     if (!showAllCourses) return; // Allow navigation if showing only enrolled courses
     
     const isEnrolled = enrollments.some(
-      (e) => e.user === currentUser?._id && e.course === courseId
+      (e: Enrollment) => e.user === currentUser?._id && e.course === courseId
     );
     
     if (!isEnrolled) {
@@ -148,7 +148,7 @@ export default function Dashboard() {
                         onClick={(event) => {
                           event.preventDefault();
                           event.stopPropagation();
-                          handleEnrollment(course._id, course.enrolled);
+                          handleEnrollment(course._id, course.enrolled || false);
                         }}>
                         {course.enrolled ? "Unenroll" : "Enroll"}
                       </Button>
