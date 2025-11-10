@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { enrollments } from "../Database";
 
-interface Enrollment {
+export interface Enrollment {
   _id: string;
   user: string;
   course: string;
