@@ -7,6 +7,10 @@ import { addNewCourse, deleteCourse, updateCourse, type Course } from "../Course
 import { enrollCourse, unenrollCourse } from "../Enrollments/reducer";
 import { RootState } from "../store";
 
+interface CourseWithEnrollment extends Course {
+  enrolled?: boolean;
+}
+
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
@@ -27,8 +31,8 @@ export default function Dashboard() {
   });
   
   // Filter courses based on showAllCourses toggle
-  const displayedCourses = showAllCourses
-    ? courses.map((course) => ({
+  const displayedCourses: CourseWithEnrollment[] = showAllCourses
+    ? courses.map((course): CourseWithEnrollment => ({
         ...course,
         enrolled: enrollments.some(
           (e) => e.user === currentUser?._id && e.course === course._id

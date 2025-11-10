@@ -1,8 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { enrollments } from "../Database";
 
-const initialState = {
-  enrollments: enrollments,
+interface Enrollment {
+  _id: string;
+  user: string;
+  course: string;
+}
+
+interface EnrollmentsState {
+  enrollments: Enrollment[];
+}
+
+const initialState: EnrollmentsState = {
+  enrollments: enrollments as Enrollment[],
 };
 
 const enrollmentsSlice = createSlice({
@@ -10,16 +20,16 @@ const enrollmentsSlice = createSlice({
   initialState,
   reducers: {
     enrollCourse: (state, { payload: { userId, courseId } }) => {
-      const newEnrollment = {
+      const newEnrollment: Enrollment = {
         _id: new Date().getTime().toString(),
         user: userId,
         course: courseId,
       };
-      state.enrollments = [...state.enrollments, newEnrollment] as any;
+      state.enrollments = [...state.enrollments, newEnrollment];
     },
     unenrollCourse: (state, { payload: { userId, courseId } }) => {
       state.enrollments = state.enrollments.filter(
-        (enrollment: any) =>
+        (enrollment) =>
           !(enrollment.user === userId && enrollment.course === courseId)
       );
     },

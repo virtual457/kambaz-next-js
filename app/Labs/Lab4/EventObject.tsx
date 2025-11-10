@@ -2,9 +2,20 @@
 import { useState } from "react";
 
 export default function EventObject() {
-  const [event, setEvent] = useState<any>(null);
+  const [event, setEvent] = useState<{
+    type: string;
+    target: string;
+    currentTarget: string;
+    clientX: number;
+    clientY: number;
+    screenX: number;
+    screenY: number;
+    ctrlKey: boolean;
+    shiftKey: boolean;
+    altKey: boolean;
+  } | null>(null);
   
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const simpleEvent = {
       type: e.type,
