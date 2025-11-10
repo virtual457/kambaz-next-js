@@ -1,18 +1,40 @@
-import { Form, FormControl, FormLabel, FormSelect, FormCheck, Button, Row, Col } from "react-bootstrap";
+"use client";
+import { FormControl, FormLabel, FormSelect, FormCheck, Button, Row, Col } from "react-bootstrap";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import * as db from "../../../../Database";
+
+interface Assignment {
+  _id: string;
+  title: string;
+  description: string;
+  points: number;
+  dueDate: string;
+  availableFromDate: string;
+  availableUntilDate: string;
+  course: string;
+}
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignments = db.assignments as Assignment[];
+  const assignment = assignments.find((assignment) => assignment._id === aid);
+  
+  if (!assignment) {
+    return <div>Assignment not found</div>;
+  }
+  
   return (
     <div id="wd-assignments-editor" className="p-3">
       <FormLabel htmlFor="wd-name">Assignment Name</FormLabel>
-      <FormControl id="wd-name" defaultValue="A1 - ENV + HTML" className="mb-3" />
+      <FormControl id="wd-name" defaultValue={assignment.title} className="mb-3" />
 
       <FormLabel htmlFor="wd-description">Description</FormLabel>
       <FormControl 
         as="textarea"
         id="wd-description"
         rows={5}
-        defaultValue="The assignment is available online. Submit a link to the landing page of your Web application running on Netlify."
+        defaultValue={assignment.description}
         className="mb-3" />
 
       <Row className="mb-3">
@@ -20,7 +42,7 @@ export default function AssignmentEditor() {
           <FormLabel htmlFor="wd-points">Points</FormLabel>
         </Col>
         <Col md={9}>
-          <FormControl id="wd-points" type="number" defaultValue={100} />
+          <FormControl id="wd-points" type="number" defaultValue={assignment.points} />
         </Col>
       </Row>
 
@@ -79,16 +101,26 @@ export default function AssignmentEditor() {
           <FormControl id="wd-assign-to" defaultValue="Everyone" className="mb-2" />
           
           <FormLabel htmlFor="wd-due-date">Due</FormLabel>
-          <FormControl id="wd-due-date" type="date" defaultValue="2024-05-13" className="mb-2" />
+          <FormControl 
+            id="wd-due-date" 
+            type="datetime-local" 
+            defaultValue={assignment.dueDate ? assignment.dueDate.slice(0, 16) : ""} 
+            className="mb-2" />
           
           <Row>
             <Col>
               <FormLabel htmlFor="wd-available-from">Available from</FormLabel>
-              <FormControl id="wd-available-from" type="date" defaultValue="2024-05-06" />
+              <FormControl 
+                id="wd-available-from" 
+                type="datetime-local" 
+                defaultValue={assignment.availableFromDate ? assignment.availableFromDate.slice(0, 16) : ""} />
             </Col>
             <Col>
               <FormLabel htmlFor="wd-available-until">Until</FormLabel>
-              <FormControl id="wd-available-until" type="date" defaultValue="2024-05-20" />
+              <FormControl 
+                id="wd-available-until" 
+                type="datetime-local" 
+                defaultValue={assignment.availableUntilDate ? assignment.availableUntilDate.slice(0, 16) : ""} />
             </Col>
           </Row>
         </Col>
@@ -96,10 +128,10 @@ export default function AssignmentEditor() {
 
       <hr />
       <div className="float-end">
-        <Link href="/Courses/1234/Assignments">
+        <Link href={`/Courses/${cid}/Assignments`}>
           <Button variant="secondary" className="me-2">Cancel</Button>
         </Link>
-        <Link href="/Courses/1234/Assignments">
+        <Link href={`/Courses/${cid}/Assignments`}>
           <Button variant="danger">Save</Button>
         </Link>
       </div>

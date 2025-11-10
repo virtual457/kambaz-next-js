@@ -1,0 +1,794 @@
+[
+  {
+    "_id": "M1234_1",
+    "name": "Week 1",
+    "description": "Introduction to React",
+    "course": "1234",
+    "lessons": [
+      {
+        "_id": "L1234_101",
+        "name": "LEARNING OBJECTIVES",
+        "description": "Introduction to the course",
+        "module": "M1234_1"
+      },
+      {
+        "_id": "L1234_102",
+        "name": "Introduction to React",
+        "description": "Overview of React fundamentals",
+        "module": "M1234_1"
+      },
+      {
+        "_id": "L1234_103",
+        "name": "Components and Props",
+        "description": "Learn about React components",
+        "module": "M1234_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1234_2",
+    "name": "Week 2",
+    "description": "State and Hooks",
+    "course": "1234",
+    "lessons": [
+      {
+        "_id": "L1234_201",
+        "name": "useState Hook",
+        "description": "Managing component state",
+        "module": "M1234_2"
+      },
+      {
+        "_id": "L1234_202",
+        "name": "useEffect Hook",
+        "description": "Side effects in React",
+        "module": "M1234_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1234_3",
+    "name": "Week 3",
+    "description": "Advanced React",
+    "course": "1234",
+    "lessons": [
+      {
+        "_id": "L1234_301",
+        "name": "Context API",
+        "description": "Global state management",
+        "module": "M1234_3"
+      },
+      {
+        "_id": "L1234_302",
+        "name": "Custom Hooks",
+        "description": "Creating reusable hooks",
+        "module": "M1234_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1235_1",
+    "name": "Week 1",
+    "description": "Next.js Fundamentals",
+    "course": "1235",
+    "lessons": [
+      {
+        "_id": "L1235_101",
+        "name": "Introduction to Next.js",
+        "description": "Getting started with Next.js",
+        "module": "M1235_1"
+      },
+      {
+        "_id": "L1235_102",
+        "name": "File-based Routing",
+        "description": "Understanding Next.js routing",
+        "module": "M1235_1"
+      },
+      {
+        "_id": "L1235_103",
+        "name": "Pages and Layouts",
+        "description": "Creating pages and layouts",
+        "module": "M1235_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1235_2",
+    "name": "Week 2",
+    "description": "Server-Side Rendering",
+    "course": "1235",
+    "lessons": [
+      {
+        "_id": "L1235_201",
+        "name": "SSR Concepts",
+        "description": "Server-side rendering basics",
+        "module": "M1235_2"
+      },
+      {
+        "_id": "L1235_202",
+        "name": "Data Fetching",
+        "description": "Fetching data in Next.js",
+        "module": "M1235_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1235_3",
+    "name": "Week 3",
+    "description": "API Routes and Deployment",
+    "course": "1235",
+    "lessons": [
+      {
+        "_id": "L1235_301",
+        "name": "API Routes",
+        "description": "Creating backend APIs",
+        "module": "M1235_3"
+      },
+      {
+        "_id": "L1235_302",
+        "name": "Deploying to Vercel",
+        "description": "Production deployment",
+        "module": "M1235_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1236_1",
+    "name": "Week 1",
+    "description": "Modern JavaScript",
+    "course": "1236",
+    "lessons": [
+      {
+        "_id": "L1236_101",
+        "name": "Arrow Functions",
+        "description": "ES6 arrow function syntax",
+        "module": "M1236_1"
+      },
+      {
+        "_id": "L1236_102",
+        "name": "Template Literals",
+        "description": "String interpolation",
+        "module": "M1236_1"
+      },
+      {
+        "_id": "L1236_103",
+        "name": "Destructuring",
+        "description": "Object and array destructuring",
+        "module": "M1236_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1236_2",
+    "name": "Week 2",
+    "description": "Async Programming",
+    "course": "1236",
+    "lessons": [
+      {
+        "_id": "L1236_201",
+        "name": "Promises",
+        "description": "Working with promises",
+        "module": "M1236_2"
+      },
+      {
+        "_id": "L1236_202",
+        "name": "Async/Await",
+        "description": "Modern async syntax",
+        "module": "M1236_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1236_3",
+    "name": "Week 3",
+    "description": "Modules and Tooling",
+    "course": "1236",
+    "lessons": [
+      {
+        "_id": "L1236_301",
+        "name": "ES6 Modules",
+        "description": "Import and export",
+        "module": "M1236_3"
+      },
+      {
+        "_id": "L1236_302",
+        "name": "Webpack and Babel",
+        "description": "Modern build tools",
+        "module": "M1236_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1237_1",
+    "name": "Week 1",
+    "description": "Node.js Basics",
+    "course": "1237",
+    "lessons": [
+      {
+        "_id": "L1237_101",
+        "name": "Introduction to Node.js",
+        "description": "What is Node.js",
+        "module": "M1237_1"
+      },
+      {
+        "_id": "L1237_102",
+        "name": "NPM and Packages",
+        "description": "Managing dependencies",
+        "module": "M1237_1"
+      },
+      {
+        "_id": "L1237_103",
+        "name": "File System Operations",
+        "description": "Working with files",
+        "module": "M1237_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1237_2",
+    "name": "Week 2",
+    "description": "Express Framework",
+    "course": "1237",
+    "lessons": [
+      {
+        "_id": "L1237_201",
+        "name": "Express Setup",
+        "description": "Getting started with Express",
+        "module": "M1237_2"
+      },
+      {
+        "_id": "L1237_202",
+        "name": "Routing and Middleware",
+        "description": "Express routing concepts",
+        "module": "M1237_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1237_3",
+    "name": "Week 3",
+    "description": "RESTful APIs",
+    "course": "1237",
+    "lessons": [
+      {
+        "_id": "L1237_301",
+        "name": "REST Principles",
+        "description": "Understanding REST",
+        "module": "M1237_3"
+      },
+      {
+        "_id": "L1237_302",
+        "name": "Building APIs",
+        "description": "Creating RESTful endpoints",
+        "module": "M1237_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1238_1",
+    "name": "Week 1",
+    "description": "TypeScript Fundamentals",
+    "course": "1238",
+    "lessons": [
+      {
+        "_id": "L1238_101",
+        "name": "TypeScript Basics",
+        "description": "Introduction to TypeScript",
+        "module": "M1238_1"
+      },
+      {
+        "_id": "L1238_102",
+        "name": "Type Annotations",
+        "description": "Basic type system",
+        "module": "M1238_1"
+      },
+      {
+        "_id": "L1238_103",
+        "name": "Compiling TypeScript",
+        "description": "TSC compiler basics",
+        "module": "M1238_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1238_2",
+    "name": "Week 2",
+    "description": "Interfaces and Types",
+    "course": "1238",
+    "lessons": [
+      {
+        "_id": "L1238_201",
+        "name": "Interfaces",
+        "description": "Defining interfaces",
+        "module": "M1238_2"
+      },
+      {
+        "_id": "L1238_202",
+        "name": "Type Aliases",
+        "description": "Custom types",
+        "module": "M1238_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1238_3",
+    "name": "Week 3",
+    "description": "Advanced TypeScript",
+    "course": "1238",
+    "lessons": [
+      {
+        "_id": "L1238_301",
+        "name": "Generics",
+        "description": "Generic programming",
+        "module": "M1238_3"
+      },
+      {
+        "_id": "L1238_302",
+        "name": "Decorators",
+        "description": "TypeScript decorators",
+        "module": "M1238_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1239_1",
+    "name": "Week 1",
+    "description": "MongoDB Introduction",
+    "course": "1239",
+    "lessons": [
+      {
+        "_id": "L1239_101",
+        "name": "NoSQL Concepts",
+        "description": "Introduction to NoSQL",
+        "module": "M1239_1"
+      },
+      {
+        "_id": "L1239_102",
+        "name": "Installing MongoDB",
+        "description": "Setup and configuration",
+        "module": "M1239_1"
+      },
+      {
+        "_id": "L1239_103",
+        "name": "MongoDB Compass",
+        "description": "Using the GUI tool",
+        "module": "M1239_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1239_2",
+    "name": "Week 2",
+    "description": "CRUD Operations",
+    "course": "1239",
+    "lessons": [
+      {
+        "_id": "L1239_201",
+        "name": "Insert Operations",
+        "description": "Creating documents",
+        "module": "M1239_2"
+      },
+      {
+        "_id": "L1239_202",
+        "name": "Query Operations",
+        "description": "Reading documents",
+        "module": "M1239_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1239_3",
+    "name": "Week 3",
+    "description": "Data Modeling",
+    "course": "1239",
+    "lessons": [
+      {
+        "_id": "L1239_301",
+        "name": "Schema Design",
+        "description": "Designing document schemas",
+        "module": "M1239_3"
+      },
+      {
+        "_id": "L1239_302",
+        "name": "Relationships",
+        "description": "Document relationships",
+        "module": "M1239_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1240_1",
+    "name": "Week 1",
+    "description": "CSS Fundamentals",
+    "course": "1240",
+    "lessons": [
+      {
+        "_id": "L1240_101",
+        "name": "CSS Selectors",
+        "description": "Targeting elements",
+        "module": "M1240_1"
+      },
+      {
+        "_id": "L1240_102",
+        "name": "Box Model",
+        "description": "Understanding layout",
+        "module": "M1240_1"
+      },
+      {
+        "_id": "L1240_103",
+        "name": "Colors and Backgrounds",
+        "description": "Styling basics",
+        "module": "M1240_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1240_2",
+    "name": "Week 2",
+    "description": "Flexbox and Grid",
+    "course": "1240",
+    "lessons": [
+      {
+        "_id": "L1240_201",
+        "name": "Flexbox Layout",
+        "description": "Flexible box layout",
+        "module": "M1240_2"
+      },
+      {
+        "_id": "L1240_202",
+        "name": "CSS Grid",
+        "description": "Grid layout system",
+        "module": "M1240_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1240_3",
+    "name": "Week 3",
+    "description": "Animations and Transitions",
+    "course": "1240",
+    "lessons": [
+      {
+        "_id": "L1240_301",
+        "name": "CSS Transitions",
+        "description": "Smooth transitions",
+        "module": "M1240_3"
+      },
+      {
+        "_id": "L1240_302",
+        "name": "CSS Animations",
+        "description": "Keyframe animations",
+        "module": "M1240_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1241_1",
+    "name": "Week 1",
+    "description": "Git Fundamentals",
+    "course": "1241",
+    "lessons": [
+      {
+        "_id": "L1241_101",
+        "name": "Version Control Basics",
+        "description": "What is version control",
+        "module": "M1241_1"
+      },
+      {
+        "_id": "L1241_102",
+        "name": "Git Setup",
+        "description": "Installing and configuring Git",
+        "module": "M1241_1"
+      },
+      {
+        "_id": "L1241_103",
+        "name": "Basic Commands",
+        "description": "add, commit, push, pull",
+        "module": "M1241_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1241_2",
+    "name": "Week 2",
+    "description": "Branching and Merging",
+    "course": "1241",
+    "lessons": [
+      {
+        "_id": "L1241_201",
+        "name": "Branching Strategies",
+        "description": "Creating and managing branches",
+        "module": "M1241_2"
+      },
+      {
+        "_id": "L1241_202",
+        "name": "Merge Conflicts",
+        "description": "Resolving conflicts",
+        "module": "M1241_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1241_3",
+    "name": "Week 3",
+    "description": "GitHub Collaboration",
+    "course": "1241",
+    "lessons": [
+      {
+        "_id": "L1241_301",
+        "name": "Pull Requests",
+        "description": "Code review workflow",
+        "module": "M1241_3"
+      },
+      {
+        "_id": "L1241_302",
+        "name": "GitHub Actions",
+        "description": "CI/CD pipelines",
+        "module": "M1241_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1242_1",
+    "name": "Week 1",
+    "description": "Docker Basics",
+    "course": "1242",
+    "lessons": [
+      {
+        "_id": "L1242_101",
+        "name": "What is Docker",
+        "description": "Introduction to containers",
+        "module": "M1242_1"
+      },
+      {
+        "_id": "L1242_102",
+        "name": "Docker Installation",
+        "description": "Setting up Docker",
+        "module": "M1242_1"
+      },
+      {
+        "_id": "L1242_103",
+        "name": "Docker Images",
+        "description": "Working with images",
+        "module": "M1242_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1242_2",
+    "name": "Week 2",
+    "description": "Containerization",
+    "course": "1242",
+    "lessons": [
+      {
+        "_id": "L1242_201",
+        "name": "Dockerfiles",
+        "description": "Creating custom images",
+        "module": "M1242_2"
+      },
+      {
+        "_id": "L1242_202",
+        "name": "Docker Compose",
+        "description": "Multi-container applications",
+        "module": "M1242_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1242_3",
+    "name": "Week 3",
+    "description": "Kubernetes Basics",
+    "course": "1242",
+    "lessons": [
+      {
+        "_id": "L1242_301",
+        "name": "Introduction to Kubernetes",
+        "description": "Container orchestration",
+        "module": "M1242_3"
+      },
+      {
+        "_id": "L1242_302",
+        "name": "Deployments and Services",
+        "description": "K8s resources",
+        "module": "M1242_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1243_1",
+    "name": "Week 1",
+    "description": "AWS Introduction",
+    "course": "1243",
+    "lessons": [
+      {
+        "_id": "L1243_101",
+        "name": "Cloud Computing Basics",
+        "description": "Introduction to cloud",
+        "module": "M1243_1"
+      },
+      {
+        "_id": "L1243_102",
+        "name": "AWS Account Setup",
+        "description": "Getting started with AWS",
+        "module": "M1243_1"
+      },
+      {
+        "_id": "L1243_103",
+        "name": "AWS Console",
+        "description": "Navigating AWS services",
+        "module": "M1243_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1243_2",
+    "name": "Week 2",
+    "description": "EC2 and S3",
+    "course": "1243",
+    "lessons": [
+      {
+        "_id": "L1243_201",
+        "name": "EC2 Instances",
+        "description": "Virtual servers in the cloud",
+        "module": "M1243_2"
+      },
+      {
+        "_id": "L1243_202",
+        "name": "S3 Storage",
+        "description": "Object storage service",
+        "module": "M1243_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1243_3",
+    "name": "Week 3",
+    "description": "Lambda and Serverless",
+    "course": "1243",
+    "lessons": [
+      {
+        "_id": "L1243_301",
+        "name": "AWS Lambda",
+        "description": "Serverless functions",
+        "module": "M1243_3"
+      },
+      {
+        "_id": "L1243_302",
+        "name": "API Gateway",
+        "description": "Creating APIs",
+        "module": "M1243_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1244_1",
+    "name": "Week 1",
+    "description": "GraphQL Fundamentals",
+    "course": "1244",
+    "lessons": [
+      {
+        "_id": "L1244_101",
+        "name": "Introduction to GraphQL",
+        "description": "What is GraphQL",
+        "module": "M1244_1"
+      },
+      {
+        "_id": "L1244_102",
+        "name": "Queries and Mutations",
+        "description": "Basic operations",
+        "module": "M1244_1"
+      },
+      {
+        "_id": "L1244_103",
+        "name": "GraphQL vs REST",
+        "description": "Comparing approaches",
+        "module": "M1244_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1244_2",
+    "name": "Week 2",
+    "description": "Schemas and Resolvers",
+    "course": "1244",
+    "lessons": [
+      {
+        "_id": "L1244_201",
+        "name": "Schema Definition",
+        "description": "Defining GraphQL schemas",
+        "module": "M1244_2"
+      },
+      {
+        "_id": "L1244_202",
+        "name": "Resolver Functions",
+        "description": "Implementing resolvers",
+        "module": "M1244_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1244_3",
+    "name": "Week 3",
+    "description": "Advanced GraphQL",
+    "course": "1244",
+    "lessons": [
+      {
+        "_id": "L1244_301",
+        "name": "Subscriptions",
+        "description": "Real-time updates",
+        "module": "M1244_3"
+      },
+      {
+        "_id": "L1244_302",
+        "name": "Apollo Client",
+        "description": "Client-side GraphQL",
+        "module": "M1244_3"
+      }
+    ]
+  },
+  {
+    "_id": "M1245_1",
+    "name": "Week 1",
+    "description": "Testing Fundamentals",
+    "course": "1245",
+    "lessons": [
+      {
+        "_id": "L1245_101",
+        "name": "Why Testing Matters",
+        "description": "Importance of testing",
+        "module": "M1245_1"
+      },
+      {
+        "_id": "L1245_102",
+        "name": "Types of Tests",
+        "description": "Unit, integration, E2E",
+        "module": "M1245_1"
+      },
+      {
+        "_id": "L1245_103",
+        "name": "Test-Driven Development",
+        "description": "TDD methodology",
+        "module": "M1245_1"
+      }
+    ]
+  },
+  {
+    "_id": "M1245_2",
+    "name": "Week 2",
+    "description": "Unit Testing with Jest",
+    "course": "1245",
+    "lessons": [
+      {
+        "_id": "L1245_201",
+        "name": "Jest Setup",
+        "description": "Configuring Jest",
+        "module": "M1245_2"
+      },
+      {
+        "_id": "L1245_202",
+        "name": "Writing Unit Tests",
+        "description": "Creating test cases",
+        "module": "M1245_2"
+      }
+    ]
+  },
+  {
+    "_id": "M1245_3",
+    "name": "Week 3",
+    "description": "E2E Testing with Cypress",
+    "course": "1245",
+    "lessons": [
+      {
+        "_id": "L1245_301",
+        "name": "Cypress Introduction",
+        "description": "Setting up Cypress",
+        "module": "M1245_3"
+      },
+      {
+        "_id": "L1245_302",
+        "name": "Writing E2E Tests",
+        "description": "End-to-end testing",
+        "module": "M1245_3"
+      }
+    ]
+  }
+]

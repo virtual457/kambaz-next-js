@@ -1,26 +1,60 @@
+"use client";
 import Link from "next/link";
-import { Card, CardImg, CardBody, CardTitle, CardText, Button, Row, Col } from "react-bootstrap";
+import { Card, CardImg, CardBody, CardTitle, CardText, Button, Row, Col, FormControl } from "react-bootstrap";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addNewCourse, deleteCourse, updateCourse, setCourses } from "../Courses/reducer";
+import { RootState } from "../store";
 
 export default function Dashboard() {
-  const courses = [
-    { _id: "1234", name: "CS1234 - React JS Fundamentals", description: "Learn React.js from scratch - Components, Hooks, and State Management", image: "/Images/reactjs.jpg" },
-    { _id: "1235", name: "CS1235 - Next.js Full-Stack Development", description: "Master Next.js - Server-Side Rendering, API Routes, and Deployment", image: "/Images/nextjs3.png" },
-    { _id: "1236", name: "CS1236 - Advanced JavaScript ES6+", description: "Deep dive into modern JavaScript - Async/Await, Promises, and Modules", image: "/Images/Javascript.jpeg" },
-    { _id: "1237", name: "CS1237 - Node.js Backend Development", description: "Build scalable server applications with Node.js and Express", image: "/Images/Nodejs.jpeg" },
-    { _id: "1238", name: "CS1238 - TypeScript for Developers", description: "Learn TypeScript - Static typing, interfaces, and advanced features", image: "/Images/typescript.png" },
-    { _id: "1239", name: "CS1239 - MongoDB Database Design", description: "Master MongoDB - Document databases, queries, and data modeling", image: "/Images/Mongodb.jpeg" },
-    { _id: "1240", name: "CS1240 - Advanced CSS3 & Styling", description: "Master CSS3 - Flexbox, Grid, animations, and responsive design", image: "/Images/css.png" },
-    { _id: "1241", name: "CS1241 - Git & GitHub Mastery", description: "Learn version control - Git workflows, branching, and collaboration", image: "/Images/git.png" },
-    { _id: "1242", name: "CS1242 - Docker & Containerization", description: "Containerize applications - Docker, Kubernetes, and deployment", image: "/Images/docker.png" },
-    { _id: "1243", name: "CS1243 - AWS Cloud Computing", description: "Deploy to the cloud - EC2, S3, Lambda, and cloud architecture", image: "/Images/aws.png" },
-    { _id: "1244", name: "CS1244 - GraphQL API Development", description: "Build efficient APIs - GraphQL schemas, resolvers, and subscriptions", image: "/Images/graphql.png" },
-    { _id: "1245", name: "CS1245 - Testing & Quality Assurance", description: "Master testing - Jest, Cypress, unit tests, and test automation", image: "/Images/testing and Qa.jpeg" },
-  ];
+  const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  const dispatch = useDispatch();
+  const [course, setCourse] = useState<any>({
+    _id: "0",
+    name: "New Course",
+    number: "New Number",
+    startDate: "2023-09-10",
+    endDate: "2023-12-15",
+    image: "/images/reactjs.jpg",
+    description: "New Description",
+  });
 
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1>
       <hr />
+      
+      <h5>
+        New Course
+        <Button 
+          className="btn btn-primary float-end"
+          onClick={() => dispatch(addNewCourse(course))}
+          id="wd-add-new-course-click">
+          Add
+        </Button>
+        <Button 
+          className="btn btn-warning float-end me-2"
+          onClick={() => dispatch(updateCourse(course))}
+          id="wd-update-course-click">
+          Update
+        </Button>
+      </h5>
+      <br />
+      
+      <FormControl 
+        value={course.name}
+        className="mb-2"
+        onChange={(e) => setCourse({ ...course, name: e.target.value })}
+      />
+      <FormControl 
+        value={course.description}
+        as="textarea"
+        rows={3}
+        className="mb-2"
+        onChange={(e) => setCourse({ ...course, description: e.target.value })}
+      />
+      <hr />
+      
       <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
       <hr />
       <div id="wd-dashboard-courses">
@@ -40,6 +74,26 @@ export default function Dashboard() {
                       {course.description}
                     </CardText>
                     <Button variant="primary">Go</Button>
+                    <Button 
+                      variant="danger"
+                      className="float-end"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        dispatch(deleteCourse(course._id));
+                      }}
+                      id="wd-delete-course-click">
+                      Delete
+                    </Button>
+                    <Button 
+                      variant="warning"
+                      className="float-end me-2"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setCourse(course);
+                      }}
+                      id="wd-edit-course-click">
+                      Edit
+                    </Button>
                   </CardBody>
                 </Link>
               </Card>
