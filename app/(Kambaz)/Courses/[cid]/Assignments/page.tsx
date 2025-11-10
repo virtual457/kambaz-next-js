@@ -9,7 +9,7 @@ import GreenCheckmark from "../Modules/GreenCheckmark";
 import { MdEditDocument } from "react-icons/md";
 import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment, type Assignment } from "./reducer";
+import { deleteAssignment } from "./reducer";
 import { RootState } from "../../../store";
 
 export default function Assignments() {

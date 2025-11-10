@@ -14,6 +14,7 @@ export default function AccountPage() {
     } else {
       router.push("/Account/Signin");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
   
   return null;

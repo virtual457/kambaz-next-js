@@ -7,7 +7,7 @@ import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addModule, deleteModule, updateModule, editModule, type Module } from "./reducer";
+import { addModule, deleteModule, updateModule, editModule } from "./reducer";
 import { RootState } from "../../../store";
 
 interface Lesson {

@@ -7,7 +7,15 @@ import { setCurrentUser } from "../reducer";
 import { RootState } from "../../store";
 
 export default function Profile() {
-  const [profile, setProfile] = useState<any>({});
+  const [profile, setProfile] = useState<{
+    username?: string;
+    password?: string;
+    firstName?: string;
+    lastName?: string;
+    dob?: string;
+    email?: string;
+    role?: string;
+  }>({});
   const dispatch = useDispatch();
   const router = useRouter();
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
@@ -27,6 +35,7 @@ export default function Profile() {
   
   useEffect(() => {
     fetchProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   return (

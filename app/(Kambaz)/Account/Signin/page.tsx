@@ -8,14 +8,17 @@ import { setCurrentUser } from "../reducer";
 import * as db from "../../Database";
 
 export default function Signin() {
-  const [credentials, setCredentials] = useState<any>({});
+  const [credentials, setCredentials] = useState<{
+    username?: string;
+    password?: string;
+  }>({});
   const dispatch = useDispatch();
   const router = useRouter();
   
   const signin = () => {
     console.log("Signin clicked", credentials);
     const user = db.users.find(
-      (u: any) =>
+      (u) =>
         u.username === credentials.username &&
         u.password === credentials.password
     );
