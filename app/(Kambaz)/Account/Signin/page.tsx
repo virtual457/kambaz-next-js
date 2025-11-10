@@ -13,12 +13,17 @@ export default function Signin() {
   const router = useRouter();
   
   const signin = () => {
+    console.log("Signin clicked", credentials);
     const user = db.users.find(
       (u: any) =>
         u.username === credentials.username &&
         u.password === credentials.password
     );
-    if (!user) return;
+    console.log("User found:", user);
+    if (!user) {
+      alert("Invalid credentials");
+      return;
+    }
     dispatch(setCurrentUser(user));
     router.push("/Dashboard");
   };
