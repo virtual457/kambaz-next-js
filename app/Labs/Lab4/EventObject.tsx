@@ -17,10 +17,12 @@ export default function EventObject() {
   
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const target = e.target as HTMLElement;
+    const currentTarget = e.currentTarget as HTMLElement;
     const simpleEvent = {
       type: e.type,
-      target: e.target.tagName,
-      currentTarget: e.currentTarget.tagName,
+      target: target.tagName,
+      currentTarget: currentTarget.tagName,
       clientX: e.clientX,
       clientY: e.clientY,
       screenX: e.screenX,
