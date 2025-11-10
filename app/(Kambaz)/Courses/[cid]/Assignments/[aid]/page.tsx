@@ -1,40 +1,66 @@
 "use client";
 import { FormControl, FormLabel, FormSelect, FormCheck, Button, Row, Col } from "react-bootstrap";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import * as db from "../../../../Database";
-
-interface Assignment {
-  _id: string;
-  title: string;
-  description: string;
-  points: number;
-  dueDate: string;
-  availableFromDate: string;
-  availableUntilDate: string;
-  course: string;
-}
+import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, updateAssignment } from "../reducer";
+import { RootState } from "../../../../store";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
-  const assignments = db.assignments as Assignment[];
-  const assignment = assignments.find((assignment) => assignment._id === aid);
+  const router = useRouter();
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const dispatch = useDispatch();
   
-  if (!assignment) {
-    return <div>Assignment not found</div>;
-  }
+  const [assignment, setAssignment] = useState<any>({
+    _id: "",
+    title: "",
+    description: "",
+    points: 100,
+    dueDate: "",
+    availableFromDate: "",
+    availableUntilDate: "",
+    course: cid,
+  });
+  
+  useEffect(() => {
+    if (aid !== "new") {
+      const existingAssignment = assignments.find((a: any) => a._id === aid);
+      if (existingAssignment) {
+        setAssignment(existingAssignment);
+      }
+    }
+  }, [aid, assignments]);
+  
+  const handleSave = () => {
+    if (aid === "new") {
+      dispatch(addAssignment(assignment));
+    } else {
+      dispatch(updateAssignment(assignment));
+    }
+    router.push(`/Courses/${cid}/Assignments`);
+  };
+  
+  const handleCancel = () => {
+    router.push(`/Courses/${cid}/Assignments`);
+  };
   
   return (
     <div id="wd-assignments-editor" className="p-3">
       <FormLabel htmlFor="wd-name">Assignment Name</FormLabel>
-      <FormControl id="wd-name" defaultValue={assignment.title} className="mb-3" />
+      <FormControl 
+        id="wd-name" 
+        value={assignment.title}
+        onChange={(e) => setAssignment({ ...assignment, title: e.target.value })}
+        className="mb-3" />
 
       <FormLabel htmlFor="wd-description">Description</FormLabel>
       <FormControl 
         as="textarea"
         id="wd-description"
         rows={5}
-        defaultValue={assignment.description}
+        value={assignment.description}
+        onChange={(e) => setAssignment({ ...assignment, description: e.target.value })}
         className="mb-3" />
 
       <Row className="mb-3">
@@ -42,7 +68,12 @@ export default function AssignmentEditor() {
           <FormLabel htmlFor="wd-points">Points</FormLabel>
         </Col>
         <Col md={9}>
-          <FormControl id="wd-points" type="number" defaultValue={assignment.points} />
+          <FormControl 
+            id="wd-points" 
+            type="number" 
+            value={assignment.points}
+            onChange={(e) => setAssignment({ ...assignment, points: parseInt(e.target.value) })}
+          />
         </Col>
       </Row>
 
@@ -83,7 +114,7 @@ export default function AssignmentEditor() {
           
           <div className="border p-3">
             <div className="fw-bold mb-2">Online Entry Options</div>
-            <FormCheck type="checkbox" id="wd-text-entry" label="Text Entry" />
+            <FormCheck type="checkbox" id="wd-text-entry" label="Text Entry" defaultChecked />
             <FormCheck type="checkbox" id="wd-website-url" label="Website URL" />
             <FormCheck type="checkbox" id="wd-media-recordings" label="Media Recordings" />
             <FormCheck type="checkbox" id="wd-student-annotation" label="Student Annotation" />
@@ -103,8 +134,9 @@ export default function AssignmentEditor() {
           <FormLabel htmlFor="wd-due-date">Due</FormLabel>
           <FormControl 
             id="wd-due-date" 
-            type="datetime-local" 
-            defaultValue={assignment.dueDate ? assignment.dueDate.slice(0, 16) : ""} 
+            type="date" 
+            value={assignment.dueDate}
+            onChange={(e) => setAssignment({ ...assignment, dueDate: e.target.value })}
             className="mb-2" />
           
           <Row>
@@ -112,15 +144,19 @@ export default function AssignmentEditor() {
               <FormLabel htmlFor="wd-available-from">Available from</FormLabel>
               <FormControl 
                 id="wd-available-from" 
-                type="datetime-local" 
-                defaultValue={assignment.availableFromDate ? assignment.availableFromDate.slice(0, 16) : ""} />
+                type="date" 
+                value={assignment.availableFromDate}
+                onChange={(e) => setAssignment({ ...assignment, availableFromDate: e.target.value })}
+              />
             </Col>
             <Col>
               <FormLabel htmlFor="wd-available-until">Until</FormLabel>
               <FormControl 
                 id="wd-available-until" 
-                type="datetime-local" 
-                defaultValue={assignment.availableUntilDate ? assignment.availableUntilDate.slice(0, 16) : ""} />
+                type="date" 
+                value={assignment.availableUntilDate}
+                onChange={(e) => setAssignment({ ...assignment, availableUntilDate: e.target.value })}
+              />
             </Col>
           </Row>
         </Col>
@@ -128,12 +164,12 @@ export default function AssignmentEditor() {
 
       <hr />
       <div className="float-end">
-        <Link href={`/Courses/${cid}/Assignments`}>
-          <Button variant="secondary" className="me-2">Cancel</Button>
-        </Link>
-        <Link href={`/Courses/${cid}/Assignments`}>
-          <Button variant="danger">Save</Button>
-        </Link>
+        <Button variant="secondary" className="me-2" onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button variant="danger" onClick={handleSave}>
+          Save
+        </Button>
       </div>
     </div>
   );

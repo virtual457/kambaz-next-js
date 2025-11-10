@@ -1,14 +1,16 @@
 "use client";
 import Link from "next/link";
-import { FaCaretDown, FaPlus } from "react-icons/fa6";
+import { FaCaretDown, FaPlus, FaTrash } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { IoEllipsisVertical } from "react-icons/io5";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { MdEditDocument } from "react-icons/md";
-import { useParams } from "next/navigation";
-import * as db from "../../../Database";
+import { useParams, useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAssignment } from "./reducer";
+import { RootState } from "../../../store";
 
 interface Assignment {
   _id: string;
@@ -23,7 +25,15 @@ interface Assignment {
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments as Assignment[];
+  const router = useRouter();
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const dispatch = useDispatch();
+  
+  const handleDeleteAssignment = (assignmentId: string) => {
+    if (window.confirm("Are you sure you want to delete this assignment?")) {
+      dispatch(deleteAssignment(assignmentId));
+    }
+  };
   
   return (
     <div id="wd-assignments">
@@ -41,7 +51,10 @@ export default function Assignments() {
           <Button variant="secondary" className="me-2" id="wd-add-assignment-group">
             <FaPlus className="me-1" /> Group
           </Button>
-          <Button variant="danger" id="wd-add-assignment">
+          <Button 
+            variant="danger" 
+            id="wd-add-assignment"
+            onClick={() => router.push(`/Courses/${cid}/Assignments/new`)}>
             <FaPlus className="me-1" /> Assignment
           </Button>
         </div>
@@ -62,8 +75,8 @@ export default function Assignments() {
 
       <ListGroup className="rounded-0">
         {assignments
-          .filter((assignment) => assignment.course === cid)
-          .map((assignment) => (
+          .filter((assignment: any) => assignment.course === cid)
+          .map((assignment: any) => (
             <ListGroupItem key={assignment._id} className="wd-assignment-list-item border-bottom border-end border-secondary position-relative ps-1">
               <div className="position-absolute top-0 bottom-0 start-0 border-start border-success border-5"></div>
               <div className="d-flex justify-content-between align-items-center ms-0">
@@ -78,13 +91,18 @@ export default function Assignments() {
                     </Link>
                     <div className="small text-muted">
                       <span className="text-danger">Multiple Modules</span> | 
-                      <strong> Not available until</strong> {new Date(assignment.availableFromDate).toLocaleDateString()} at 12:00am |
+                      <strong> Not available until</strong> {assignment.availableFromDate} at 12:00am |
                       <br />
-                      <strong>Due</strong> {new Date(assignment.dueDate).toLocaleDateString()} at 11:59pm | {assignment.points} pts
+                      <strong>Due</strong> {assignment.dueDate} at 11:59pm | {assignment.points} pts
                     </div>
                   </div>
                 </div>
                 <div>
+                  <FaTrash 
+                    className="text-danger me-2 mb-1" 
+                    onClick={() => handleDeleteAssignment(assignment._id)}
+                    style={{ cursor: 'pointer' }}
+                  />
                   <GreenCheckmark />
                   <IoEllipsisVertical className="fs-4" />
                 </div>

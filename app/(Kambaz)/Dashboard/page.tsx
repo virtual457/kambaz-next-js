@@ -10,8 +10,10 @@ import * as db from "../Database";
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-  const { enrollments } = db;
   const dispatch = useDispatch();
+  
+  // We'll handle enrollments later - for now just show all courses when logged in
+  const displayedCourses = currentUser ? courses : [];
   const [course, setCourse] = useState<any>({
     _id: "0",
     name: "New Course",
@@ -58,19 +60,11 @@ export default function Dashboard() {
       />
       <hr />
       
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
+      <h2 id="wd-dashboard-published">Published Courses ({displayedCourses.length})</h2>
       <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          {courses
-            .filter((course) =>
-              enrollments.some(
-                (enrollment) =>
-                  enrollment.user === currentUser?._id &&
-                  enrollment.course === course._id
-              )
-            )
-            .map((course) => (
+          {displayedCourses.map((course) => (
             <Col key={course._id} className="wd-dashboard-course" style={{ width: "300px" }}>
               <Card>
                 <Link 
