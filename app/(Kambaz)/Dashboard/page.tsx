@@ -5,9 +5,12 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewCourse, deleteCourse, updateCourse, setCourses } from "../Courses/reducer";
 import { RootState } from "../store";
+import * as db from "../Database";
 
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const { enrollments } = db;
   const dispatch = useDispatch();
   const [course, setCourse] = useState<any>({
     _id: "0",
@@ -59,7 +62,15 @@ export default function Dashboard() {
       <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          {courses.map((course) => (
+          {courses
+            .filter((course) =>
+              enrollments.some(
+                (enrollment) =>
+                  enrollment.user === currentUser?._id &&
+                  enrollment.course === course._id
+              )
+            )
+            .map((course) => (
             <Col key={course._id} className="wd-dashboard-course" style={{ width: "300px" }}>
               <Card>
                 <Link 
