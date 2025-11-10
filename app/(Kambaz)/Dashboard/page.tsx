@@ -11,6 +11,12 @@ interface CourseWithEnrollment extends Course {
   enrolled?: boolean;
 }
 
+interface Enrollment {
+  _id: string;
+  user: string;
+  course: string;
+}
+
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
@@ -34,13 +40,13 @@ export default function Dashboard() {
   const displayedCourses: CourseWithEnrollment[] = showAllCourses
     ? courses.map((course): CourseWithEnrollment => ({
         ...course,
-        enrolled: enrollments.some(
-          (e) => e.user === currentUser?._id && e.course === course._id
+        enrolled: (enrollments as Enrollment[]).some(
+          (e: Enrollment) => e.user === currentUser?._id && e.course === course._id
         ),
       }))
     : courses.filter((course) =>
-        enrollments.some(
-          (e) => e.user === currentUser?._id && e.course === course._id
+        (enrollments as Enrollment[]).some(
+          (e: Enrollment) => e.user === currentUser?._id && e.course === course._id
         )
       );
   
@@ -57,8 +63,8 @@ export default function Dashboard() {
   const handleCourseClick = (event: React.MouseEvent, courseId: string) => {
     if (!showAllCourses) return; // Allow navigation if showing only enrolled courses
     
-    const isEnrolled = enrollments.some(
-      (e) => e.user === currentUser?._id && e.course === courseId
+    const isEnrolled = (enrollments as Enrollment[]).some(
+      (e: Enrollment) => e.user === currentUser?._id && e.course === courseId
     );
     
     if (!isEnrolled) {
