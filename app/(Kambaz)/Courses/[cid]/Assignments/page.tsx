@@ -9,19 +9,8 @@ import GreenCheckmark from "../Modules/GreenCheckmark";
 import { MdEditDocument } from "react-icons/md";
 import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { deleteAssignment, type Assignment } from "./reducer";
 import { RootState } from "../../../store";
-
-interface Assignment {
-  _id: string;
-  title: string;
-  description: string;
-  points: number;
-  dueDate: string;
-  availableFromDate: string;
-  availableUntilDate: string;
-  course: string;
-}
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -75,8 +64,8 @@ export default function Assignments() {
 
       <ListGroup className="rounded-0">
         {assignments
-          .filter((assignment: any) => assignment.course === cid)
-          .map((assignment: any) => (
+          .filter((assignment) => assignment.course === cid)
+          .map((assignment) => (
             <ListGroupItem key={assignment._id} className="wd-assignment-list-item border-bottom border-end border-secondary position-relative ps-1">
               <div className="position-absolute top-0 bottom-0 start-0 border-start border-success border-5"></div>
               <div className="d-flex justify-content-between align-items-center ms-0">

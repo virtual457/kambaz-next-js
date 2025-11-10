@@ -7,7 +7,7 @@ import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setModules, addModule, deleteModule, updateModule, editModule } from "./reducer";
+import { addModule, deleteModule, updateModule, editModule, type Module } from "./reducer";
 import { RootState } from "../../../store";
 
 interface Lesson {
@@ -15,15 +15,6 @@ interface Lesson {
   name: string;
   description: string;
   module: string;
-}
-
-interface Module {
-  _id: string;
-  name: string;
-  description: string;
-  course: string;
-  lessons?: Lesson[];
-  editing?: boolean;
 }
 
 export default function Modules() {
@@ -46,8 +37,8 @@ export default function Modules() {
       
       <ListGroup className="rounded-0" id="wd-modules">
         {modules
-          .filter((module: any) => module.course === cid)
-          .map((module: any) => (
+          .filter((module) => module.course === cid)
+          .map((module) => (
             <ListGroupItem key={module._id} className="wd-module p-0 mb-5 fs-5 border-gray">
               <div className="wd-title p-3 ps-2 bg-secondary">
                 <BsGripVertical className="me-2 fs-3" /> 

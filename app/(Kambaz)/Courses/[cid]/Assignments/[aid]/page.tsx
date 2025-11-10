@@ -3,7 +3,7 @@ import { FormControl, FormLabel, FormSelect, FormCheck, Button, Row, Col } from 
 import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addAssignment, updateAssignment } from "../reducer";
+import { addAssignment, updateAssignment, type Assignment } from "../reducer";
 import { RootState } from "../../../../store";
 
 export default function AssignmentEditor() {
@@ -12,20 +12,20 @@ export default function AssignmentEditor() {
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
   const dispatch = useDispatch();
   
-  const [assignment, setAssignment] = useState<any>({
+  const [assignment, setAssignment] = useState<Assignment>({
     _id: "",
     title: "",
+    course: cid as string,
     description: "",
     points: 100,
     dueDate: "",
     availableFromDate: "",
     availableUntilDate: "",
-    course: cid,
   });
   
   useEffect(() => {
     if (aid !== "new") {
-      const existingAssignment = assignments.find((a: any) => a._id === aid);
+      const existingAssignment = assignments.find((a) => a._id === aid);
       if (existingAssignment) {
         setAssignment(existingAssignment);
       }
