@@ -7,8 +7,19 @@ import { setCurrentUser } from "../reducer";
 import { RootState } from "../../store";
 import * as client from "../client";
 
+interface UserProfile {
+  _id?: string;
+  username?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
+  dob?: string;
+  email?: string;
+  role?: string;
+}
+
 export default function Profile() {
-  const [profile, setProfile] = useState<any>({});
+  const [profile, setProfile] = useState<UserProfile>({});
   const dispatch = useDispatch();
   const router = useRouter();
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);

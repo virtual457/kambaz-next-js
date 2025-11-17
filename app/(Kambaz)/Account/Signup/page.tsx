@@ -7,8 +7,18 @@ import { useRouter } from "next/navigation";
 import { setCurrentUser } from "../reducer";
 import * as client from "../client";
 
+interface NewUser {
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  dob: string;
+  role: string;
+}
+
 export default function Signup() {
-  const [user, setUser] = useState<any>({
+  const [user, setUser] = useState<NewUser>({
     username: "",
     password: "",
     firstName: "",
@@ -31,9 +41,14 @@ export default function Signup() {
       const newUser = await client.signup(user);
       dispatch(setCurrentUser(newUser));
       router.push("/Dashboard");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Signup error:", error);
-      alert(error.response?.data?.message || "Signup failed");
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { message?: string } } };
+        alert(axiosError.response?.data?.message || "Signup failed");
+      } else {
+        alert("Signup failed");
+      }
     }
   };
   
