@@ -5,6 +5,7 @@ import store from "./Store";
 import ClickEvent from "./ClickEvent";
 import PassingDataOnEvent from "./PassingDataOnEvent";
 import PassingFunctions from "./PassingFunctions";
+import EventObject from "./EventObject";
 import Counter from "./Counter";
 import BooleanStateVariables from "./BooleanStateVariables";
 import StringStateVariables from "./StringStateVariables";
@@ -29,6 +30,7 @@ export default function Lab4() {
         <ClickEvent />
         <PassingDataOnEvent />
         <PassingFunctions theFunction={sayHello} />
+        <EventObject />
         <Counter />
         <BooleanStateVariables />
         <StringStateVariables />

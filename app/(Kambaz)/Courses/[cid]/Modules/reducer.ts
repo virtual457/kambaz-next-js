@@ -1,8 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { modules } from "../../../Database";
 
-const initialState = {
-  modules: modules,
+export interface Module {
+  _id: string;
+  name: string;
+  description: string;
+  course: string;
+  lessons?: Lesson[];
+  editing?: boolean;
+}
+
+interface Lesson {
+  _id: string;
+  name: string;
+  description: string;
+  module: string;
+}
+
+interface ModulesState {
+  modules: Module[];
+}
+
+const initialState: ModulesState = {
+  modules: modules as Module[],
 };
 
 const modulesSlice = createSlice({
@@ -13,28 +33,29 @@ const modulesSlice = createSlice({
       state.modules = action.payload;
     },
     addModule: (state, { payload: module }) => {
-      const newModule: any = {
+      const newModule: Module = {
         _id: new Date().getTime().toString(),
         name: module.name,
         course: module.course,
+        description: "",
         lessons: [],
       };
-      state.modules = [...state.modules, newModule] as any;
+      state.modules = [...state.modules, newModule];
     },
     deleteModule: (state, { payload: moduleId }) => {
       state.modules = state.modules.filter(
-        (m: any) => m._id !== moduleId
+        (m) => m._id !== moduleId
       );
     },
     updateModule: (state, { payload: module }) => {
-      state.modules = state.modules.map((m: any) =>
+      state.modules = state.modules.map((m) =>
         m._id === module._id ? module : m
-      ) as any;
+      );
     },
     editModule: (state, { payload: moduleId }) => {
-      state.modules = state.modules.map((m: any) =>
+      state.modules = state.modules.map((m) =>
         m._id === moduleId ? { ...m, editing: true } : m
-      ) as any;
+      );
     },
   },
 });

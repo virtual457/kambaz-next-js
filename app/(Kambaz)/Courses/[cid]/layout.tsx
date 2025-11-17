@@ -1,14 +1,17 @@
+"use client";
 import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
 import { FaAlignJustify } from "react-icons/fa6";
-import { courses } from "../../Database";
+import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import Breadcrumb from "./Breadcrumb";
 
-export default async function CoursesLayout(
-  { children, params }: Readonly<{ children: ReactNode; params: Promise<{ cid: string }> }>
-) {
-  const { cid } = await params;
-  const course = courses.find((course) => course._id === cid);
+export default function CoursesLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const { cid } = useParams();
+  const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  
+  const course = courses.find((c) => c._id === cid);
 
   return (
     <div id="wd-courses">

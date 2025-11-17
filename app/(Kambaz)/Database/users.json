@@ -1,5 +1,19 @@
 [
   {
+    "_id": "120",
+    "username": "alice",
+    "password": "wonderland",
+    "firstName": "Alice",
+    "lastName": "Wonderland",
+    "email": "alice@wonderland.com",
+    "dob": "2000-01-01",
+    "role": "STUDENT",
+    "loginId": "001234560S",
+    "section": "S101",
+    "lastActivity": "2020-10-01",
+    "totalActivity": "10:00:00"
+  },
+  {
     "_id": "121",
     "username": "iron_man",
     "password": "stark123",

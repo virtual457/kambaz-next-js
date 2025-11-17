@@ -37,7 +37,7 @@ export default function ArrayStateVariable() {
       
       <h3>Todos from Redux</h3>
       <ListGroup>
-        {todos.map((todo: any) => (
+        {todos.map((todo: { id: string; title: string }) => (
           <ListGroupItem key={todo.id}>
             {todo.title}
           </ListGroupItem>
