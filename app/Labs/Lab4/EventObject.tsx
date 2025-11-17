@@ -17,8 +17,8 @@ export default function EventObject() {
   
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const target = e.target as HTMLElement;
-    const currentTarget = e.currentTarget as HTMLElement;
+    const target = e.target as HTMLButtonElement;
+    const currentTarget = e.currentTarget;
     const simpleEvent = {
       type: e.type,
       target: target.tagName,
