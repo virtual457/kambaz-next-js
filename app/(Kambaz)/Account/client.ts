@@ -28,7 +28,7 @@ export const signin = async (credentials: Credentials) => {
   return response.data;
 };
 
-export const signup = async (user: User) => {
+export const signup = async (user: Partial<User>) => {
   const response = await axios.post(`${USERS_API}/signup`, user);
   return response.data;
 };
@@ -38,7 +38,7 @@ export const profile = async () => {
   return response.data;
 };
 
-export const updateUser = async (user: User) => {
+export const updateUser = async (user: Partial<User>) => {
   const response = await axios.put(`${USERS_API}/${user._id}`, user);
   return response.data;
 };
