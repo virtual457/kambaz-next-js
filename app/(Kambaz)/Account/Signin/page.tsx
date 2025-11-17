@@ -22,7 +22,11 @@ export default function Signin() {
     }
     
     try {
-      const user = await client.signin(credentials);
+      // TypeScript knows these are non-empty strings here
+      const user = await client.signin({
+        username: credentials.username,
+        password: credentials.password,
+      });
       dispatch(setCurrentUser(user));
       router.push("/Dashboard");
     } catch (error) {
