@@ -8,14 +8,19 @@ import { setCurrentUser } from "../reducer";
 import * as client from "../client";
 
 export default function Signin() {
-  const [credentials, setCredentials] = useState<{
-    username?: string;
-    password?: string;
-  }>({});
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
   const dispatch = useDispatch();
   const router = useRouter();
   
   const signin = async () => {
+    if (!credentials.username || !credentials.password) {
+      alert("Please enter username and password");
+      return;
+    }
+    
     try {
       const user = await client.signin(credentials);
       dispatch(setCurrentUser(user));
