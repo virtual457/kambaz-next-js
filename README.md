@@ -22,11 +22,51 @@
     <br />
     <a href="https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app">View Live Demo</a>
     ·
-    <a href="https://github.com/virtual457/kambaz-next-js/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://kambaz-node-server-app-irwy.onrender.com/api/courses">View API</a>
     ·
-    <a href="https://github.com/virtual457/kambaz-next-js/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/virtual457/kambaz-next-js/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/virtual457/kambaz-next-js/issues">Request Feature</a>
   </p>
 </div>
+
+<!-- LIVE DEMO SECTION -->
+## 🚀 Live Demo
+
+<div align="center">
+
+### **Frontend Application (Vercel)**
+[![Deployment Status](https://img.shields.io/badge/Vercel-Live-brightgreen?style=for-the-badge&logo=vercel)](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app)
+
+**Live App:** [https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app)
+
+Try it out:
+- [Dashboard](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Dashboard) - Browse courses
+- [Sign In](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Account/Signin) - Test credentials: `iron_man` / `stark123`
+- [Sample Course](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Courses/1234/Home) - View course content
+
+### **Backend API (Render)**
+[![API Status](https://img.shields.io/website?url=https%3A%2F%2Fkambaz-node-server-app-irwy.onrender.com%2Fhello&style=for-the-badge&label=API%20STATUS)](https://kambaz-node-server-app-irwy.onrender.com/hello)
+
+**API Base URL:** [https://kambaz-node-server-app-irwy.onrender.com](https://kambaz-node-server-app-irwy.onrender.com)
+
+### **Full Stack Architecture**
+```
+┌──────────────────────┐      HTTPS/REST      ┌──────────────────────┐
+│   Next.js Frontend   │ ←─────────────────→  │   Node.js Backend    │
+│   React + Redux      │      API Calls       │   Express + REST     │
+│   Vercel Hosting     │                      │   Render Hosting     │
+└──────────────────────┘                      └──────────────────────┘
+```
+
+**Tech Stack:**  
+Frontend: Next.js 15, React 19, TypeScript, Redux Toolkit, Bootstrap, Tailwind  
+Backend: Node.js, Express, RESTful APIs, CORS  
+Deployment: Vercel (Frontend) + Render (Backend)
+
+</div>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -155,21 +195,27 @@ Traditional learning platforms often suffer from poor user experience, limited c
    ```
 
 4. Create environment configuration
-   ```sh
-   cp .env.example .env.local
-   ```
    
-   Configure your `.env.local` file:
+   Create `.env.local` file:
    ```env
    NEXT_PUBLIC_HTTP_SERVER=http://localhost:4000
    ```
 
-5. Start the development server
+5. Start the backend server (required)
+   ```sh
+   # In another terminal, clone and start the backend
+   git clone https://github.com/virtual457/kambaz-node-server-app.git
+   cd kambaz-node-server-app
+   npm install
+   npm run dev
+   ```
+
+6. Start the frontend development server
    ```sh
    npm run dev
    ```
 
-6. Open your browser
+7. Open your browser
    ```
    http://localhost:3000
    ```
@@ -204,8 +250,8 @@ Traditional learning platforms often suffer from poor user experience, limited c
 ### Getting Started as an Educator
 
 1. **Sign In**
-   - Use faculty credentials
-   - Access faculty dashboard
+   - Use demo credentials: `iron_man` / `stark123`
+   - Access educator dashboard
 
 2. **Create Course**
    - Click "Add" on Dashboard
@@ -301,7 +347,7 @@ kambaz-next-js/
 │   │   ├── Database/          # Initial data (development)
 │   │   ├── Enrollments/       # Enrollment management
 │   │   └── store.ts          # Redux store configuration
-│   ├── Labs/                  # Learning exercises
+│   ├── Labs/                  # Learning exercises & demos
 │   │   ├── Lab1/             # HTML fundamentals
 │   │   ├── Lab2/             # CSS & Bootstrap
 │   │   ├── Lab3/             # JavaScript basics
@@ -339,7 +385,7 @@ kambaz-next-js/
 
 ### Production Deployment on Vercel
 
-**Live Application:** https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app
+**Live Application:** [https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app)
 
 #### Deploy Your Own Instance
 
@@ -385,7 +431,7 @@ NEXT_PUBLIC_HTTP_SERVER=http://localhost:4000
 
 #### Production (Vercel)
 ```env
-NEXT_PUBLIC_HTTP_SERVER=https://your-backend-api.onrender.com
+NEXT_PUBLIC_HTTP_SERVER=https://kambaz-node-server-app-irwy.onrender.com
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -395,33 +441,34 @@ NEXT_PUBLIC_HTTP_SERVER=https://your-backend-api.onrender.com
 
 ### Current Features
 - [x] User authentication and session management
-- [x] Course catalog and enrollment
+- [x] Course catalog and enrollment system
 - [x] Module-based content organization
 - [x] Assignment distribution and management
 - [x] Responsive UI with Bootstrap and Tailwind
 - [x] Redux state management
 - [x] RESTful API integration
 - [x] Production deployment on Vercel
+- [x] Real-time data synchronization
 
 ### Upcoming Features
 - [ ] **Database Integration**: MongoDB for persistent storage
 - [ ] **File Uploads**: Support for course materials and submissions
-- [ ] **Rich Text Editor**: Enhanced content creation
+- [ ] **Rich Text Editor**: Enhanced content creation with formatting
 - [ ] **Discussion Forums**: Student and instructor interaction
 - [ ] **Video Integration**: Lecture recordings and streaming
-- [ ] **Quiz System**: Interactive assessments and grading
-- [ ] **Grade Book**: Comprehensive grade management
-- [ ] **Calendar Integration**: Due dates and course schedule
-- [ ] **Notifications**: Real-time alerts and reminders
-- [ ] **Analytics Dashboard**: Usage statistics and insights
+- [ ] **Quiz System**: Interactive assessments and auto-grading
+- [ ] **Grade Book**: Comprehensive grade management and analytics
+- [ ] **Calendar Integration**: Due dates and course schedule visualization
+- [ ] **Push Notifications**: Real-time alerts and reminders
+- [ ] **Analytics Dashboard**: Usage statistics and learning insights
 - [ ] **Mobile App**: Native iOS and Android applications
 - [ ] **Offline Mode**: Progressive Web App capabilities
 - [ ] **Accessibility**: WCAG 2.1 AA compliance
 - [ ] **Internationalization**: Multi-language support
-- [ ] **Dark Mode**: Theme customization
-- [ ] **Advanced Search**: Full-text search across content
+- [ ] **Dark Mode**: Theme customization and preferences
+- [ ] **Advanced Search**: Full-text search across all content
 - [ ] **Collaboration Tools**: Group projects and peer review
-- [ ] **AI Assistant**: Chatbot for student support
+- [ ] **AI Assistant**: Intelligent chatbot for student support
 
 See the [open issues](https://github.com/virtual457/kambaz-next-js/issues) for a full list of proposed features and known issues.
 
@@ -472,7 +519,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 **Project Links:**
 - Frontend Application: [https://github.com/virtual457/kambaz-next-js](https://github.com/virtual457/kambaz-next-js)
 - Backend API: [https://github.com/virtual457/kambaz-node-server-app](https://github.com/virtual457/kambaz-node-server-app)
-- Live Demo: [https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app)
+- Live Frontend: [https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app)
+- Live Backend: [https://kambaz-node-server-app-irwy.onrender.com](https://kambaz-node-server-app-irwy.onrender.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
