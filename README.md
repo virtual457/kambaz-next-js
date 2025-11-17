@@ -33,24 +33,32 @@
 <!-- LIVE DEMO SECTION -->
 ## 🚀 Live Demo
 
+### Frontend Application (Vercel)
+
 <div align="center">
 
-### **Frontend Application (Vercel)**
 [![Deployment Status](https://img.shields.io/badge/Vercel-Live-brightgreen?style=for-the-badge&logo=vercel)](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app)
 
 **Live App:** [https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app)
 
-Try it out:
-- [Dashboard](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Dashboard) - Browse courses
-- [Sign In](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Account/Signin) - Test credentials: `iron_man` / `stark123`
-- [Sample Course](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Courses/1234/Home) - View course content
+</div>
 
-### **Backend API (Render)**
+**Try it out:**
+- [Dashboard](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Dashboard) - Browse courses and manage enrollments
+- [Sign In](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Account/Signin) - Test with credentials: `iron_man` / `stark123`
+- [Sample Course](https://kambaz-next-js-git-a5-chandan-gowda-k-ss-projects.vercel.app/Courses/1234/Home) - Explore course content
+
+### Backend API (Render)
+
+<div align="center">
+
 [![API Status](https://img.shields.io/website?url=https%3A%2F%2Fkambaz-node-server-app-irwy.onrender.com%2Fhello&style=for-the-badge&label=API%20STATUS)](https://kambaz-node-server-app-irwy.onrender.com/hello)
 
 **API Base URL:** [https://kambaz-node-server-app-irwy.onrender.com](https://kambaz-node-server-app-irwy.onrender.com)
 
-### **Full Stack Architecture**
+</div>
+
+### Full Stack Architecture
 ```
 ┌──────────────────────┐      HTTPS/REST      ┌──────────────────────┐
 │   Next.js Frontend   │ ←─────────────────→  │   Node.js Backend    │
@@ -63,8 +71,6 @@ Try it out:
 Frontend: Next.js 15, React 19, TypeScript, Redux Toolkit, Bootstrap, Tailwind  
 Backend: Node.js, Express, RESTful APIs, CORS  
 Deployment: Vercel (Frontend) + Render (Backend)
-
-</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
