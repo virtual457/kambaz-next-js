@@ -5,10 +5,11 @@ import ModulesControls from "./ModulesControls";
 import ModuleControlButtons from "./ModuleControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addModule, deleteModule, updateModule, editModule } from "./reducer";
+import { setModules, addModule, deleteModule, updateModule, editModule } from "./reducer";
 import { RootState } from "../../../store";
+import * as modulesClient from "./client";
 
 interface Lesson {
   _id: string;
@@ -23,15 +24,56 @@ export default function Modules() {
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
   const dispatch = useDispatch();
   
+  // Fetch modules from server
+  useEffect(() => {
+    const fetchModules = async () => {
+      try {
+        const modulesData = await modulesClient.fetchModulesForCourse(cid as string);
+        dispatch(setModules(modulesData));
+      } catch (error) {
+        console.error("Error fetching modules:", error);
+      }
+    };
+    fetchModules();
+  }, [cid, dispatch]);
+  
+  const handleAddModule = async () => {
+    try {
+      const newModule = await modulesClient.createModule(cid as string, { 
+        name: moduleName,
+        description: "New Module Description"
+      });
+      dispatch(addModule(newModule));
+      setModuleName("");
+    } catch (error) {
+      console.error("Error creating module:", error);
+    }
+  };
+  
+  const handleDeleteModule = async (moduleId: string) => {
+    try {
+      await modulesClient.deleteModule(moduleId);
+      dispatch(deleteModule(moduleId));
+    } catch (error) {
+      console.error("Error deleting module:", error);
+    }
+  };
+  
+  const handleUpdateModule = async (module: any) => {
+    try {
+      await modulesClient.updateModule(module);
+      dispatch(updateModule(module));
+    } catch (error) {
+      console.error("Error updating module:", error);
+    }
+  };
+  
   return (
     <div>
       <ModulesControls 
         moduleName={moduleName}
         setModuleName={setModuleName}
-        addModule={() => {
-          dispatch(addModule({ name: moduleName, course: cid }));
-          setModuleName("");
-        }}
+        addModule={handleAddModule}
       />
       <br /><br /><br /><br />
       
@@ -52,14 +94,14 @@ export default function Modules() {
                     }
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        dispatch(updateModule({ ...module, editing: false }));
+                        handleUpdateModule({ ...module, editing: false });
                       }
                     }}
                   />
                 )}
                 <ModuleControlButtons 
                   moduleId={module._id}
-                  deleteModule={(moduleId) => dispatch(deleteModule(moduleId))}
+                  deleteModule={handleDeleteModule}
                   editModule={(moduleId) => dispatch(editModule(moduleId))}
                 />
               </div>

@@ -28,8 +28,8 @@ export default function Dashboard() {
     startDate: "2023-09-10",
     endDate: "2023-12-15",
     department: "General",
-    credits: 0,
-    image: "/images/reactjs.jpg",
+    credits: 3,
+    image: "/Images/reactjs.jpg",
     description: "New Description",
   });
   
@@ -95,14 +95,45 @@ export default function Dashboard() {
   };
   
   const handleAddCourse = async () => {
-    if (!currentUser) return;
+    if (!currentUser) {
+      alert("Please sign in to create a course");
+      return;
+    }
     try {
-      const newCourse = await coursesClient.createCourse(course);
+      // Create course object with all required fields
+      const newCourseData = {
+        ...course,
+        _id: undefined, // Let server generate ID
+        image: course.image || "/Images/reactjs.jpg",
+      };
+      
+      console.log("Creating course:", newCourseData);
+      const newCourse = await coursesClient.createCourse(newCourseData);
+      console.log("Course created:", newCourse);
+      
       dispatch(addNewCourse(newCourse));
+      
+      // Enroll the creator
       await enrollmentsClient.enrollUserInCourse(currentUser._id, newCourse._id);
       dispatch(enrollCourse({ userId: currentUser._id, courseId: newCourse._id }));
+      
+      // Reset form
+      setCourse({
+        _id: "0",
+        name: "New Course",
+        number: "NEW-000",
+        startDate: "2023-09-10",
+        endDate: "2023-12-15",
+        department: "General",
+        credits: 3,
+        image: "/Images/reactjs.jpg",
+        description: "New Description",
+      });
+      
+      alert("Course created successfully!");
     } catch (error) {
       console.error("Error creating course:", error);
+      alert("Failed to create course. Check console for details.");
     }
   };
   
@@ -110,17 +141,22 @@ export default function Dashboard() {
     try {
       await coursesClient.updateCourse(course);
       dispatch(updateCourse(course));
+      alert("Course updated successfully!");
     } catch (error) {
       console.error("Error updating course:", error);
+      alert("Failed to update course");
     }
   };
   
   const handleDeleteCourse = async (courseId: string) => {
+    if (!confirm("Are you sure you want to delete this course?")) return;
+    
     try {
       await coursesClient.deleteCourse(courseId);
       dispatch(deleteCourse(courseId));
     } catch (error) {
       console.error("Error deleting course:", error);
+      alert("Failed to delete course");
     }
   };
 
@@ -155,11 +191,19 @@ export default function Dashboard() {
       
       <FormControl 
         value={course.name}
+        placeholder="Course Name"
         className="mb-2"
         onChange={(e) => setCourse({ ...course, name: e.target.value })}
       />
       <FormControl 
+        value={course.number}
+        placeholder="Course Number"
+        className="mb-2"
+        onChange={(e) => setCourse({ ...course, number: e.target.value })}
+      />
+      <FormControl 
         value={course.description}
+        placeholder="Course Description"
         as="textarea"
         rows={3}
         className="mb-2"
