@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { FaCaretDown, FaPlus, FaTrash } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
@@ -9,8 +8,10 @@ import GreenCheckmark from "../Modules/GreenCheckmark";
 import { MdEditDocument } from "react-icons/md";
 import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { setAssignments, deleteAssignment } from "./reducer";
 import { RootState } from "../../../store";
+import { useEffect } from "react";
+import * as assignmentsClient from "./client";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -18,10 +19,33 @@ export default function Assignments() {
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
   const dispatch = useDispatch();
   
-  const handleDeleteAssignment = (assignmentId: string) => {
+  // Fetch assignments from server
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const assignmentsData = await assignmentsClient.fetchAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignmentsData));
+      } catch (error) {
+        console.error("Error fetching assignments:", error);
+      }
+    };
+    fetchAssignments();
+  }, [cid, dispatch]);
+  
+  const handleDeleteAssignment = async (assignmentId: string) => {
     if (window.confirm("Are you sure you want to delete this assignment?")) {
-      dispatch(deleteAssignment(assignmentId));
+      try {
+        await assignmentsClient.deleteAssignment(assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+      } catch (error) {
+        console.error("Error deleting assignment:", error);
+        alert("Failed to delete assignment");
+      }
     }
+  };
+  
+  const handleEditAssignment = (assignmentId: string) => {
+    router.push(`/Courses/${cid}/Assignments/${assignmentId}`);
   };
   
   return (
@@ -71,13 +95,19 @@ export default function Assignments() {
               <div className="d-flex justify-content-between align-items-center ms-0">
                 <div className="d-flex align-items-start">
                   <BsGripVertical className="fs-3 mt-3" />
-                  <MdEditDocument className="fs-3 mt-3 me-3 text-success" />
+                  <MdEditDocument 
+                    className="fs-3 mt-3 me-3 text-success" 
+                    onClick={() => handleEditAssignment(assignment._id)}
+                    style={{ cursor: 'pointer' }}
+                    title="Edit Assignment"
+                  />
                   <div>
-                    <Link
-                      href={`/Courses/${cid}/Assignments/${assignment._id}`}
-                      className="wd-assignment-link text-decoration-none text-dark fw-bold">
+                    <div 
+                      className="wd-assignment-link text-dark fw-bold"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleEditAssignment(assignment._id)}>
                       {assignment.title}
-                    </Link>
+                    </div>
                     <div className="small text-muted">
                       <span className="text-danger">Multiple Modules</span> | 
                       <strong> Not available until</strong> {assignment.availableFromDate} at 12:00am |
@@ -86,11 +116,12 @@ export default function Assignments() {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="d-flex align-items-center">
                   <FaTrash 
                     className="text-danger me-2 mb-1" 
                     onClick={() => handleDeleteAssignment(assignment._id)}
                     style={{ cursor: 'pointer' }}
+                    title="Delete Assignment"
                   />
                   <GreenCheckmark />
                   <IoEllipsisVertical className="fs-4" />
