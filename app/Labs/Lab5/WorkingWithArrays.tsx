@@ -4,9 +4,15 @@ import { useState, useEffect } from 'react';
 
 const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
 export default function WorkingWithArrays() {
-  const [todos, setTodos] = useState<any[]>([]);
-  const [todo, setTodo] = useState({ id: 0, title: '', completed: false });
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todo, setTodo] = useState<Todo>({ id: 0, title: '', completed: false });
 
   const fetchTodos = async () => {
     const response = await fetch(`${HTTP_SERVER}/lab5/todos`);

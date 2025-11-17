@@ -7,7 +7,7 @@ import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setModules, addModule, deleteModule, updateModule, editModule } from "./reducer";
+import { setModules, addModule, deleteModule, updateModule, editModule, type Module } from "./reducer";
 import { RootState } from "../../../store";
 import * as modulesClient from "./client";
 
@@ -59,7 +59,7 @@ export default function Modules() {
     }
   };
   
-  const handleUpdateModule = async (module: any) => {
+  const handleUpdateModule = async (module: Module) => {
     try {
       await modulesClient.updateModule(module);
       dispatch(updateModule(module));
