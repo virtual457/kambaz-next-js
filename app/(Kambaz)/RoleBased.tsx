@@ -1,6 +1,6 @@
 "use client";
 import { useSelector } from "react-redux";
-import { User } from "../Account/reducer";
+import { User } from "./Account/reducer";
 
 interface RoleBasedProps {
   children: React.ReactNode;
