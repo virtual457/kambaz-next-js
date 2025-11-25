@@ -65,14 +65,14 @@ export default function WorkingWithArrays() {
       <a
         id="wd-get-todos-completed-true"
         className="btn btn-primary me-2"
-        href={`${HTTP_SERVER}/lab5/todos/completed/true`}
+        href={`${HTTP_SERVER}/lab5/todos?completed=true`}
       >
         Get Completed
       </a>
       <a
         id="wd-get-todos-completed-false"
         className="btn btn-primary"
-        href={`${HTTP_SERVER}/lab5/todos/completed/false`}
+        href={`${HTTP_SERVER}/lab5/todos?completed=false`}
       >
         Get Not Completed
       </a>
