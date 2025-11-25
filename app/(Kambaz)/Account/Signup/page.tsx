@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { FormControl, Button } from "react-bootstrap";
+import { FormControl, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -94,6 +94,20 @@ export default function Signup() {
         placeholder="date of birth" 
         type="date"
         className="mb-2" />
+      
+      {/* Role Selection Dropdown */}
+      <Form.Group className="mb-2">
+        <Form.Label>Select Role</Form.Label>
+        <Form.Select 
+          value={user.role}
+          onChange={(e) => setUser({ ...user, role: e.target.value })}
+          id="wd-role-select">
+          <option value="STUDENT">Student</option>
+          <option value="FACULTY">Faculty</option>
+          <option value="ADMIN">Admin</option>
+        </Form.Select>
+      </Form.Group>
+      
       <Button 
         onClick={signup}
         variant="primary" 

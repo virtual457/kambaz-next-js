@@ -21,6 +21,9 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const [showAllCourses, setShowAllCourses] = useState(false);
   
+  // Check if user is faculty
+  const isFaculty = currentUser?.role === "FACULTY";
+  
   const [course, setCourse] = useState<Course>({
     _id: "0",
     name: "New Course",
@@ -172,44 +175,49 @@ export default function Dashboard() {
       </h1>
       <hr />
       
-      <h5>
-        New Course
-        <Button 
-          className="btn btn-primary float-end"
-          onClick={handleAddCourse}
-          id="wd-add-new-course-click">
-          Add
-        </Button>
-        <Button 
-          className="btn btn-warning float-end me-2"
-          onClick={handleUpdateCourse}
-          id="wd-update-course-click">
-          Update
-        </Button>
-      </h5>
-      <br />
-      
-      <FormControl 
-        value={course.name}
-        placeholder="Course Name"
-        className="mb-2"
-        onChange={(e) => setCourse({ ...course, name: e.target.value })}
-      />
-      <FormControl 
-        value={course.number}
-        placeholder="Course Number"
-        className="mb-2"
-        onChange={(e) => setCourse({ ...course, number: e.target.value })}
-      />
-      <FormControl 
-        value={course.description}
-        placeholder="Course Description"
-        as="textarea"
-        rows={3}
-        className="mb-2"
-        onChange={(e) => setCourse({ ...course, description: e.target.value })}
-      />
-      <hr />
+      {/* Only FACULTY can add/edit/delete courses */}
+      {isFaculty && (
+        <>
+          <h5>
+            New Course
+            <Button 
+              className="btn btn-primary float-end"
+              onClick={handleAddCourse}
+              id="wd-add-new-course-click">
+              Add
+            </Button>
+            <Button 
+              className="btn btn-warning float-end me-2"
+              onClick={handleUpdateCourse}
+              id="wd-update-course-click">
+              Update
+            </Button>
+          </h5>
+          <br />
+          
+          <FormControl 
+            value={course.name}
+            placeholder="Course Name"
+            className="mb-2"
+            onChange={(e) => setCourse({ ...course, name: e.target.value })}
+          />
+          <FormControl 
+            value={course.number}
+            placeholder="Course Number"
+            className="mb-2"
+            onChange={(e) => setCourse({ ...course, number: e.target.value })}
+          />
+          <FormControl 
+            value={course.description}
+            placeholder="Course Description"
+            as="textarea"
+            rows={3}
+            className="mb-2"
+            onChange={(e) => setCourse({ ...course, description: e.target.value })}
+          />
+          <hr />
+        </>
+      )}
       
       <h2 id="wd-dashboard-published">Published Courses ({displayedCourses.length})</h2>
       <hr />
@@ -245,7 +253,7 @@ export default function Dashboard() {
                       </Button>
                     )}
                     
-                    {!showAllCourses && (
+                    {!showAllCourses && isFaculty && (
                       <>
                         <Button 
                           variant="danger"

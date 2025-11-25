@@ -12,11 +12,13 @@ import { setAssignments, deleteAssignment } from "./reducer";
 import { RootState } from "../../../store";
 import { useEffect } from "react";
 import * as assignmentsClient from "./client";
+import RoleBased from "../../../RoleBased";
 
 export default function Assignments() {
   const { cid } = useParams();
   const router = useRouter();
   const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const currentUser = useSelector((state: RootState) => state.accountReducer.currentUser);
   const dispatch = useDispatch();
   
   // Fetch assignments from server
@@ -37,9 +39,13 @@ export default function Assignments() {
       try {
         await assignmentsClient.deleteAssignment(assignmentId);
         dispatch(deleteAssignment(assignmentId));
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error deleting assignment:", error);
-        alert("Failed to delete assignment");
+        if (error.response?.status === 403) {
+          alert("You don't have permission to delete assignments");
+        } else {
+          alert("Failed to delete assignment");
+        }
       }
     }
   };
@@ -47,6 +53,8 @@ export default function Assignments() {
   const handleEditAssignment = (assignmentId: string) => {
     router.push(`/Courses/${cid}/Assignments/${assignmentId}`);
   };
+  
+  const isFacultyOrAdmin = currentUser?.role === 'FACULTY' || currentUser?.role === 'ADMIN';
   
   return (
     <div id="wd-assignments">
@@ -60,17 +68,21 @@ export default function Assignments() {
             id="wd-search-assignment"
             className="form-control" />
         </div>
-        <div>
-          <Button variant="secondary" className="me-2" id="wd-add-assignment-group">
-            <FaPlus className="me-1" /> Group
-          </Button>
-          <Button 
-            variant="danger" 
-            id="wd-add-assignment"
-            onClick={() => router.push(`/Courses/${cid}/Assignments/new`)}>
-            <FaPlus className="me-1" /> Assignment
-          </Button>
-        </div>
+        
+        {/* Only FACULTY and ADMIN can see add buttons */}
+        <RoleBased allowedRoles={['FACULTY', 'ADMIN']}>
+          <div>
+            <Button variant="secondary" className="me-2" id="wd-add-assignment-group">
+              <FaPlus className="me-1" /> Group
+            </Button>
+            <Button 
+              variant="danger" 
+              id="wd-add-assignment"
+              onClick={() => router.push(`/Courses/${cid}/Assignments/new`)}>
+              <FaPlus className="me-1" /> Assignment
+            </Button>
+          </div>
+        </RoleBased>
       </div>
 
       <div className="p-3 bg-secondary d-flex justify-content-between align-items-center">
@@ -95,17 +107,22 @@ export default function Assignments() {
               <div className="d-flex justify-content-between align-items-center ms-0">
                 <div className="d-flex align-items-start">
                   <BsGripVertical className="fs-3 mt-3" />
-                  <MdEditDocument 
-                    className="fs-3 mt-3 me-3 text-success" 
-                    onClick={() => handleEditAssignment(assignment._id)}
-                    style={{ cursor: 'pointer' }}
-                    title="Edit Assignment"
-                  />
+                  
+                  {/* Only FACULTY and ADMIN can see edit icon */}
+                  <RoleBased allowedRoles={['FACULTY', 'ADMIN']}>
+                    <MdEditDocument 
+                      className="fs-3 mt-3 me-3 text-success" 
+                      onClick={() => handleEditAssignment(assignment._id)}
+                      style={{ cursor: 'pointer' }}
+                      title="Edit Assignment"
+                    />
+                  </RoleBased>
+                  
                   <div>
                     <div 
                       className="wd-assignment-link text-dark fw-bold"
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleEditAssignment(assignment._id)}>
+                      style={{ cursor: isFacultyOrAdmin ? 'pointer' : 'default' }}
+                      onClick={() => isFacultyOrAdmin && handleEditAssignment(assignment._id)}>
                       {assignment.title}
                     </div>
                     <div className="small text-muted">
@@ -116,13 +133,18 @@ export default function Assignments() {
                     </div>
                   </div>
                 </div>
+                
                 <div className="d-flex align-items-center">
-                  <FaTrash 
-                    className="text-danger me-2 mb-1" 
-                    onClick={() => handleDeleteAssignment(assignment._id)}
-                    style={{ cursor: 'pointer' }}
-                    title="Delete Assignment"
-                  />
+                  {/* Only FACULTY and ADMIN can see delete icon */}
+                  <RoleBased allowedRoles={['FACULTY', 'ADMIN']}>
+                    <FaTrash 
+                      className="text-danger me-2 mb-1" 
+                      onClick={() => handleDeleteAssignment(assignment._id)}
+                      style={{ cursor: 'pointer' }}
+                      title="Delete Assignment"
+                    />
+                  </RoleBased>
+                  
                   <GreenCheckmark />
                   <IoEllipsisVertical className="fs-4" />
                 </div>

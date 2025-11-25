@@ -22,6 +22,7 @@ export default function Modules() {
   const { cid } = useParams();
   const [moduleName, setModuleName] = useState("");
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   const dispatch = useDispatch();
   
   // Fetch modules from server
@@ -70,11 +71,13 @@ export default function Modules() {
   
   return (
     <div>
-      <ModulesControls 
-        moduleName={moduleName}
-        setModuleName={setModuleName}
-        addModule={handleAddModule}
-      />
+      {currentUser?.role === "FACULTY" && (
+        <ModulesControls 
+          moduleName={moduleName}
+          setModuleName={setModuleName}
+          addModule={handleAddModule}
+        />
+      )}
       <br /><br /><br /><br />
       
       <ListGroup className="rounded-0" id="wd-modules">
@@ -99,11 +102,13 @@ export default function Modules() {
                     }}
                   />
                 )}
-                <ModuleControlButtons 
-                  moduleId={module._id}
-                  deleteModule={handleDeleteModule}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))}
-                />
+                {currentUser?.role === "FACULTY" && (
+                  <ModuleControlButtons 
+                    moduleId={module._id}
+                    deleteModule={handleDeleteModule}
+                    editModule={(moduleId) => dispatch(editModule(moduleId))}
+                  />
+                )}
               </div>
               {module.lessons && (
                 <ListGroup className="wd-lessons rounded-0">
