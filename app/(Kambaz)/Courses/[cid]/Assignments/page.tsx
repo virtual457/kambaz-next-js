@@ -39,13 +39,9 @@ export default function Assignments() {
       try {
         await assignmentsClient.deleteAssignment(assignmentId);
         dispatch(deleteAssignment(assignmentId));
-      } catch (error: any) {
+      } catch (error) {
         console.error("Error deleting assignment:", error);
-        if (error.response?.status === 403) {
-          alert("You don't have permission to delete assignments");
-        } else {
-          alert("Failed to delete assignment");
-        }
+        alert("Failed to delete assignment");
       }
     }
   };
