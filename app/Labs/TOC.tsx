@@ -49,6 +49,14 @@ export default function TOC() {
       </li>
       <li className="nav-item">
         <Link 
+          href="/Labs/Lab5" 
+          className={`nav-link ${pathname.includes("Lab5") ? "active" : ""}`}
+          id="wd-lab5-link">
+          Lab 5
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link 
           href="/" 
           className="nav-link"
           id="wd-kambaz-link">
@@ -60,8 +68,26 @@ export default function TOC() {
           href="https://github.com/virtual457/kambaz-next-js" 
           className="nav-link"
           target="_blank"
-          id="wd-github">
-          My GitHub
+          id="wd-github-frontend">
+          GitHub Frontend
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link 
+          href="https://github.com/virtual457/kambaz-node-server-app" 
+          className="nav-link"
+          target="_blank"
+          id="wd-github-backend">
+          GitHub Backend
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link 
+          href="https://kambaz-node-server-app-irwy.onrender.com" 
+          className="nav-link"
+          target="_blank"
+          id="wd-render-server">
+          Render Server
         </Link>
       </li>
     </ul>

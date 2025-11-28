@@ -5,30 +5,34 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setCurrentUser } from "../reducer";
-import * as db from "../../Database";
+import * as client from "../client";
 
 export default function Signin() {
-  const [credentials, setCredentials] = useState<{
-    username?: string;
-    password?: string;
-  }>({});
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
   const dispatch = useDispatch();
   const router = useRouter();
   
-  const signin = () => {
-    console.log("Signin clicked", credentials);
-    const user = db.users.find(
-      (u) =>
-        u.username === credentials.username &&
-        u.password === credentials.password
-    );
-    console.log("User found:", user);
-    if (!user) {
-      alert("Invalid credentials");
+  const signin = async () => {
+    if (!credentials.username || !credentials.password) {
+      alert("Please enter username and password");
       return;
     }
-    dispatch(setCurrentUser(user));
-    router.push("/Dashboard");
+    
+    try {
+      // TypeScript knows these are non-empty strings here
+      const user = await client.signin({
+        username: credentials.username,
+        password: credentials.password,
+      });
+      dispatch(setCurrentUser(user));
+      router.push("/Dashboard");
+    } catch (error) {
+      console.error("Signin error:", error);
+      alert("Invalid credentials");
+    }
   };
   
   return (
