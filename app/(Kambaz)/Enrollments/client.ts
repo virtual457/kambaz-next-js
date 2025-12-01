@@ -6,12 +6,8 @@ const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 const API_BASE = `${HTTP_SERVER}/api`;
 
 export const fetchEnrollmentsForUser = async (userId: string) => {
-  const response = await axiosWithCredentials.get(`${API_BASE}/users/${userId}/enrollments`);
-  return response.data;
-};
-
-export const fetchEnrollmentsForCourse = async (courseId: string) => {
-  const response = await axiosWithCredentials.get(`${API_BASE}/courses/${courseId}/enrollments`);
+  // This actually returns courses for the user, not enrollments
+  const response = await axiosWithCredentials.get(`${API_BASE}/users/${userId}/courses`);
   return response.data;
 };
 
