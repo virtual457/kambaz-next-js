@@ -28,8 +28,8 @@ export default function PeopleTable() {
   const [showUserId, setShowUserId] = useState<string | null>(null);
   
   const fetchUsers = async () => {
-    const users = await client.findUsersForCourse(cid as string);
-    setUsers(users);
+    const usersData = await client.findUsersForCourse(cid as string);
+    setUsers(usersData);
   };
   
   useEffect(() => {

@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
-import { useParams } from "next/navigation";
 import PeopleDetails from "./Details";
 
 interface User {
@@ -20,8 +19,7 @@ interface User {
   totalActivity: string;
 }
 
-export default function PeopleTable({ users = [], fetchUsers }: { users?: any[]; fetchUsers: () => void; }) {
-  const { cid } = useParams();
+export default function PeopleTable({ users = [], fetchUsers }: { users?: User[]; fetchUsers: () => void; }) {
   const [showDetails, setShowDetails] = useState(false);
   const [showUserId, setShowUserId] = useState<string | null>(null);
   

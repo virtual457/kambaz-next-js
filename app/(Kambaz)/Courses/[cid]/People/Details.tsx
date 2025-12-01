@@ -6,27 +6,37 @@ import { IoCloseSharp } from "react-icons/io5";
 import { FormControl } from "react-bootstrap";
 import * as client from "../../../Account/client";
 
+interface User {
+  _id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  loginId: string;
+  section: string;
+  totalActivity: string;
+}
+
 export default function PeopleDetails({ uid, onClose }: { uid: string | null; onClose: () => void; }) {
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<User | null>(null);
   const [name, setName] = useState("");
   const [editing, setEditing] = useState(false);
   
   const fetchUser = async () => {
     if (!uid) return;
-    const user = await client.findUserById(uid);
-    setUser(user);
+    const userData = await client.findUserById(uid);
+    setUser(userData);
   };
   
-  const deleteUser = async (uid: string) => {
-    await client.deleteUser(uid);
+  const deleteUser = async (userId: string) => {
+    await client.deleteUser(userId);
     onClose();
   };
   
   const saveUser = async () => {
-    if (!name) return; // Don't save if name is empty
+    if (!name || !user) return;
     const [firstName, lastName] = name.split(" ");
     const updatedUser = { ...user, firstName, lastName };
-    console.log("Saving user:", updatedUser);
     await client.updateUser(updatedUser);
     setUser(updatedUser);
     setEditing(false);
@@ -36,7 +46,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
     if (uid) fetchUser();
   }, [uid]);
   
-  if (!uid) return null;
+  if (!uid || !user) return null;
   
   return (
     <div className="wd-people-details position-fixed top-0 end-0 bottom-0 bg-white p-4 shadow w-25">
