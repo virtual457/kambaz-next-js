@@ -218,7 +218,7 @@ export default function Dashboard() {
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
           {displayedCourses.map((c) => {
-            const courseEnrolled = 'enrolled' in c ? c.enrolled : true;
+            const courseEnrolled = 'enrolled' in c ? (c.enrolled || false) : true;
             return (
               <Col key={c._id} className="wd-dashboard-course" style={{ width: "300px" }}>
                 <Card>
