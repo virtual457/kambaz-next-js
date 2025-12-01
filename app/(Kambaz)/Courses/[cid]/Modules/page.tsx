@@ -53,7 +53,7 @@ export default function Modules() {
   
   const handleDeleteModule = async (moduleId: string) => {
     try {
-      await modulesClient.deleteModule(moduleId);
+      await modulesClient.deleteModule(cid as string, moduleId);
       dispatch(deleteModule(moduleId));
     } catch (error) {
       console.error("Error deleting module:", error);
@@ -62,7 +62,7 @@ export default function Modules() {
   
   const handleUpdateModule = async (module: Module) => {
     try {
-      await modulesClient.updateModule(module);
+      await modulesClient.updateModule(cid as string, module);
       dispatch(updateModule(module));
     } catch (error) {
       console.error("Error updating module:", error);
@@ -81,48 +81,46 @@ export default function Modules() {
       <br /><br /><br /><br />
       
       <ListGroup className="rounded-0" id="wd-modules">
-        {modules
-          .filter((module) => module.course === cid)
-          .map((module) => (
-            <ListGroupItem key={module._id} className="wd-module p-0 mb-5 fs-5 border-gray">
-              <div className="wd-title p-3 ps-2 bg-secondary">
-                <BsGripVertical className="me-2 fs-3" /> 
-                {!module.editing && module.name}
-                {module.editing && (
-                  <FormControl
-                    className="w-50 d-inline-block"
-                    value={module.name}
-                    onChange={(e) =>
-                      dispatch(updateModule({ ...module, name: e.target.value }))
+        {modules.map((module) => (
+          <ListGroupItem key={module._id} className="wd-module p-0 mb-5 fs-5 border-gray">
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              <BsGripVertical className="me-2 fs-3" /> 
+              {!module.editing && module.name}
+              {module.editing && (
+                <FormControl
+                  className="w-50 d-inline-block"
+                  value={module.name}
+                  onChange={(e) =>
+                    dispatch(updateModule({ ...module, name: e.target.value }))
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleUpdateModule({ ...module, editing: false });
                     }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleUpdateModule({ ...module, editing: false });
-                      }
-                    }}
-                  />
-                )}
-                {currentUser?.role === "FACULTY" && (
-                  <ModuleControlButtons 
-                    moduleId={module._id}
-                    deleteModule={handleDeleteModule}
-                    editModule={(moduleId) => dispatch(editModule(moduleId))}
-                  />
-                )}
-              </div>
-              {module.lessons && (
-                <ListGroup className="wd-lessons rounded-0">
-                  {module.lessons.map((lesson: Lesson) => (
-                    <ListGroupItem key={lesson._id} className="wd-lesson p-3 ps-1">
-                      <BsGripVertical className="me-2 fs-3" /> 
-                      {lesson.name}
-                      <LessonControlButtons />
-                    </ListGroupItem>
-                  ))}
-                </ListGroup>
+                  }}
+                />
               )}
-            </ListGroupItem>
-          ))}
+              {currentUser?.role === "FACULTY" && (
+                <ModuleControlButtons 
+                  moduleId={module._id}
+                  deleteModule={handleDeleteModule}
+                  editModule={(moduleId) => dispatch(editModule(moduleId))}
+                />
+              )}
+            </div>
+            {module.lessons && (
+              <ListGroup className="wd-lessons rounded-0">
+                {module.lessons.map((lesson: Lesson) => (
+                  <ListGroupItem key={lesson._id} className="wd-lesson p-3 ps-1">
+                    <BsGripVertical className="me-2 fs-3" /> 
+                    {lesson.name}
+                    <LessonControlButtons />
+                  </ListGroupItem>
+                ))}
+              </ListGroup>
+            )}
+          </ListGroupItem>
+        ))}
       </ListGroup>
     </div>
   );

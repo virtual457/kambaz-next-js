@@ -4,7 +4,6 @@ const axiosWithCredentials = axios.create({ withCredentials: true });
 
 const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 const COURSES_API = `${HTTP_SERVER}/api/courses`;
-const MODULES_API = `${HTTP_SERVER}/api/modules`;
 
 interface Module {
   _id?: string;
@@ -31,12 +30,12 @@ export const createModule = async (courseId: string, module: Module) => {
   return response.data;
 };
 
-export const updateModule = async (module: Module) => {
-  const response = await axiosWithCredentials.put(`${MODULES_API}/${module._id}`, module);
+export const updateModule = async (courseId: string, module: Module) => {
+  const response = await axiosWithCredentials.put(`${COURSES_API}/${courseId}/modules/${module._id}`, module);
   return response.data;
 };
 
-export const deleteModule = async (moduleId: string) => {
-  const response = await axiosWithCredentials.delete(`${MODULES_API}/${moduleId}`);
+export const deleteModule = async (courseId: string, moduleId: string) => {
+  const response = await axiosWithCredentials.delete(`${COURSES_API}/${courseId}/modules/${moduleId}`);
   return response.data;
 };
