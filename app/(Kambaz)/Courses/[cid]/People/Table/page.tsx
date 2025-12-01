@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "next/navigation";
@@ -27,14 +27,14 @@ export default function PeopleTable() {
   const [showDetails, setShowDetails] = useState(false);
   const [showUserId, setShowUserId] = useState<string | null>(null);
   
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     const usersData = await client.findUsersForCourse(cid as string);
     setUsers(usersData);
-  };
+  }, [cid]);
   
   useEffect(() => {
     fetchUsers();
-  }, [cid]);
+  }, [fetchUsers]);
   
   return (
     <div id="wd-people-table">

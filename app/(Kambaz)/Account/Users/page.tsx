@@ -6,10 +6,21 @@ import { FaPlus } from "react-icons/fa";
 import PeopleTable from "../../Courses/[cid]/People/Table";
 import * as client from "../client";
 
+interface User {
+  _id?: string;
+  username: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  role?: string;
+  loginId?: string;
+  section?: string;
+}
+
 export default function Users() {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [role, setRole] = useState("");
-  const [name, setName] = useState("");
   const { uid } = useParams();
   
   const createUser = async () => {
@@ -25,29 +36,28 @@ export default function Users() {
     setUsers([...users, user]);
   };
   
-  const filterUsersByRole = async (role: string) => {
-    setRole(role);
-    if (role) {
-      const users = await client.findUsersByRole(role);
-      setUsers(users);
+  const filterUsersByRole = async (selectedRole: string) => {
+    setRole(selectedRole);
+    if (selectedRole) {
+      const filteredUsers = await client.findUsersByRole(selectedRole);
+      setUsers(filteredUsers);
     } else {
       fetchUsers();
     }
   };
   
-  const filterUsersByName = async (name: string) => {
-    setName(name);
-    if (name) {
-      const users = await client.findUsersByPartialName(name);
-      setUsers(users);
+  const filterUsersByName = async (searchName: string) => {
+    if (searchName) {
+      const filteredUsers = await client.findUsersByPartialName(searchName);
+      setUsers(filteredUsers);
     } else {
       fetchUsers();
     }
   };
   
   const fetchUsers = async () => {
-    const users = await client.findAllUsers();
-    setUsers(users);
+    const allUsers = await client.findAllUsers();
+    setUsers(allUsers);
   };
   
   useEffect(() => {

@@ -19,7 +19,7 @@ export default function SessionRestoration() {
         if (user) {
           dispatch(setCurrentUser(user));
         }
-      } catch (error) {
+      } catch {
         // No user logged in, or session expired - this is fine
         console.log("No active session");
       }

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { FaUserCircle, FaCheck } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
@@ -22,11 +22,11 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
   const [name, setName] = useState("");
   const [editing, setEditing] = useState(false);
   
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     if (!uid) return;
     const userData = await client.findUserById(uid);
     setUser(userData);
-  };
+  }, [uid]);
   
   const deleteUser = async (userId: string) => {
     await client.deleteUser(userId);
@@ -44,7 +44,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
   
   useEffect(() => {
     if (uid) fetchUser();
-  }, [uid]);
+  }, [uid, fetchUser]);
   
   if (!uid || !user) return null;
   
