@@ -6,24 +6,9 @@ import { useParams } from "next/navigation";
 import * as client from "../../../client";
 import PeopleDetails from "../Details";
 
-interface User {
-  _id: string;
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  dob: string;
-  role: string;
-  loginId: string;
-  section: string;
-  lastActivity: string;
-  totalActivity: string;
-}
-
 export default function PeopleTable() {
   const { cid } = useParams();
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [showDetails, setShowDetails] = useState(false);
   const [showUserId, setShowUserId] = useState<string | null>(null);
   
@@ -59,7 +44,7 @@ export default function PeopleTable() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.map((user: any) => (
             <tr key={user._id}>
               <td className="wd-full-name text-nowrap">
                 <span 

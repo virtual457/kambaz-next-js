@@ -6,19 +6,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { FormControl } from "react-bootstrap";
 import * as client from "../../../Account/client";
 
-interface User {
-  _id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  role: string;
-  loginId: string;
-  section: string;
-  totalActivity: string;
-}
-
 export default function PeopleDetails({ uid, onClose }: { uid: string | null; onClose: () => void; }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [name, setName] = useState("");
   const [editing, setEditing] = useState(false);
   
