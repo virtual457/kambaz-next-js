@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import * as client from "../client";
 import { FormControl } from "react-bootstrap";
-import { FaPlus } from "react-icons/fa";
-import PeopleTable from "../../Courses/[cid]/People/Table";
+import { FaPlus, FaUserCircle } from "react-icons/fa";
+import PeopleDetails from "../../Courses/[cid]/People/Details";
 
 export default function Users() {
   const router = useRouter();
@@ -23,7 +23,8 @@ export default function Users() {
   const [users, setUsers] = useState<any[]>([]);
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
-  const { uid } = useParams();
+  const [showDetails, setShowDetails] = useState(false);
+  const [showUserId, setShowUserId] = useState<string | null>(null);
   
   const createUser = async () => {
     const user = await client.createUser({
@@ -38,6 +39,8 @@ export default function Users() {
     setUsers([...users, user]);
   };
 
+  const { uid } = useParams();
+  
   const fetchUsers = async () => {
     const users = await client.findAllUsers();
     setUsers(users);
@@ -67,35 +70,93 @@ export default function Users() {
     }
   };
 
+  const handleUserClick = (userId: string) => {
+    setShowDetails(true);
+    setShowUserId(userId);
+  };
+
   return (
     <>
-      <h3>Users</h3>
-      <button 
-        onClick={createUser} 
-        className="float-end btn btn-danger wd-add-people"
-      >
-        <FaPlus className="me-2" />
-        Users
-      </button>
-      <div className="d-flex gap-3 mb-4">
-        <FormControl
-          onChange={(e) => filterUsersByName(e.target.value)}
-          placeholder="Search people"
-          className="w-25"
+      {showDetails && showUserId && (
+        <PeopleDetails
+          uid={showUserId}
+          onClose={() => {
+            setShowDetails(false);
+            setShowUserId(null);
+          }}
+          onDelete={async () => {
+            // Refresh users list after deletion
+            await fetchUsers();
+          }}
+          onUpdate={async () => {
+            // Refresh users list after update
+            await fetchUsers();
+          }}
         />
-        <select
-          value={role}
-          onChange={(e) => filterUsersByRole(e.target.value)}
-          className="form-select w-25"
-        >
-          <option value="">All Roles</option>
-          <option value="STUDENT">Students</option>
-          <option value="TA">Assistants</option>
-          <option value="FACULTY">Faculty</option>
-          <option value="ADMIN">Administrators</option>
-        </select>
+      )}
+      <div style={{ marginRight: showDetails ? "25%" : "0" }}>
+        <h3>Users</h3>
+        <button onClick={createUser} className="float-end btn btn-danger wd-add-people">
+          <FaPlus className="me-2" />
+          Users
+        </button>
+        <div className="d-flex gap-3 mb-4">
+          <FormControl
+            onChange={(e) => filterUsersByName(e.target.value)}
+            placeholder="Search people"
+            className="w-25"
+          />
+          <select
+            value={role}
+            onChange={(e) => filterUsersByRole(e.target.value)}
+            className="form-select w-25"
+          >
+            <option value="">All Roles</option>
+            <option value="STUDENT">Students</option>
+            <option value="TA">Assistants</option>
+            <option value="FACULTY">Faculty</option>
+            <option value="ADMIN">Administrators</option>
+          </select>
+        </div>
+        <div id="wd-people-table">
+          <div className="table-responsive">
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Login ID</th>
+                  <th>Section</th>
+                  <th>Role</th>
+                  <th>Last Activity</th>
+                  <th>Total Activity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users?.map((user: any) => (
+                  <tr key={user._id}>
+                    <td className="wd-full-name text-nowrap">
+                      <FaUserCircle className="me-2 fs-1 text-secondary" />
+                      <span
+                        className="text-decoration-none text-danger"
+                        onClick={() => handleUserClick(user._id)}
+                        style={{ cursor: "pointer", userSelect: "none" }}
+                      >
+                        <span className="wd-first-name">{user.firstName}</span>{" "}
+                        <span className="wd-last-name">{user.lastName}</span>
+                      </span>
+                    </td>
+                    <td className="wd-login-id">{user.loginId}</td>
+                    <td className="wd-section">{user.section}</td>
+                    <td className="wd-role">{user.role}</td>
+                    <td className="wd-last-activity">{user.lastActivity}</td>
+                    <td className="wd-total-activity">{user.totalActivity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <PeopleTable users={users} fetchUsers={fetchUsers} />
     </>
   );
 }
