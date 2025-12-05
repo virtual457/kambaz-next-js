@@ -1,14 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import * as client from "../client";
 import { FormControl } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import PeopleTable from "../../Courses/[cid]/People/Table";
-import * as client from "../client";
 
 export default function Users() {
+  const router = useRouter();
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
+  const isAdmin = (currentUser as any)?.role === "ADMIN";
+
+  useEffect(() => {
+    if (currentUser && !isAdmin) {
+      router.push("/Account/Profile");
+    }
+  }, [currentUser, isAdmin, router]);
+
   const [users, setUsers] = useState<any[]>([]);
   const [role, setRole] = useState("");
+  const [name, setName] = useState("");
   const { uid } = useParams();
   
   const createUser = async () => {
@@ -23,59 +37,65 @@ export default function Users() {
     });
     setUsers([...users, user]);
   };
-  
-  const filterUsersByRole = async (selectedRole: string) => {
-    setRole(selectedRole);
-    if (selectedRole) {
-      const filteredUsers = await client.findUsersByRole(selectedRole);
-      setUsers(filteredUsers);
-    } else {
-      fetchUsers();
-    }
-  };
-  
-  const filterUsersByName = async (searchName: string) => {
-    if (searchName) {
-      const filteredUsers = await client.findUsersByPartialName(searchName);
-      setUsers(filteredUsers);
-    } else {
-      fetchUsers();
-    }
-  };
-  
+
   const fetchUsers = async () => {
-    const allUsers = await client.findAllUsers();
-    setUsers(allUsers);
+    const users = await client.findAllUsers();
+    setUsers(users);
   };
-  
+
   useEffect(() => {
     fetchUsers();
   }, [uid]);
-  
+
+  const filterUsersByRole = async (role: string) => {
+    setRole(role);
+    if (role) {
+      const users = await client.findUsersByRole(role);
+      setUsers(users);
+    } else {
+      fetchUsers();
+    }
+  };
+
+  const filterUsersByName = async (name: string) => {
+    setName(name);
+    if (name) {
+      const users = await client.findUsersByPartialName(name);
+      setUsers(users);
+    } else {
+      fetchUsers();
+    }
+  };
+
   return (
-    <div>
+    <>
       <h3>Users</h3>
-      <button onClick={createUser} className="float-end btn btn-danger wd-add-people">
-        <FaPlus className="me-2" />
-        People
-      </button>
-      <FormControl 
-        onChange={(e) => filterUsersByName(e.target.value)} 
-        placeholder="Search people"
-        className="float-start w-25 me-2 wd-filter-by-name"
-      />
-      <select 
-        value={role} 
-        onChange={(e) => filterUsersByRole(e.target.value)}
-        className="form-select float-start w-25 wd-select-role"
+      <button 
+        onClick={createUser} 
+        className="float-end btn btn-danger wd-add-people"
       >
-        <option value="">All Roles</option>
-        <option value="STUDENT">Students</option>
-        <option value="TA">Assistants</option>
-        <option value="FACULTY">Faculty</option>
-        <option value="ADMIN">Administrators</option>
-      </select>
+        <FaPlus className="me-2" />
+        Users
+      </button>
+      <div className="d-flex gap-3 mb-4">
+        <FormControl
+          onChange={(e) => filterUsersByName(e.target.value)}
+          placeholder="Search people"
+          className="w-25"
+        />
+        <select
+          value={role}
+          onChange={(e) => filterUsersByRole(e.target.value)}
+          className="form-select w-25"
+        >
+          <option value="">All Roles</option>
+          <option value="STUDENT">Students</option>
+          <option value="TA">Assistants</option>
+          <option value="FACULTY">Faculty</option>
+          <option value="ADMIN">Administrators</option>
+        </select>
+      </div>
       <PeopleTable users={users} fetchUsers={fetchUsers} />
-    </div>
+    </>
   );
 }

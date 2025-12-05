@@ -1,35 +1,41 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Nav, NavItem, NavLink } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
 export default function AccountNavigation() {
-  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-  const pathname = usePathname();
+  const currentUser = useSelector(
+    (state: RootState) => state.accountReducer.currentUser
+  ) as { role?: string } | null;
   const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
-  
+  const pathname = usePathname();
+
   return (
-    <div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
+    <Nav variant="pills">
       {links.map((link) => (
-        <Link 
-          key={link}
-          href={`/Account/${link}`}
-          className={`list-group-item border-0 ${
-            pathname.includes(link) ? "active" : "text-danger"
-          }`}>
-          {link}
-        </Link>
+        <NavItem key={link}>
+          <NavLink
+            as={Link}
+            href={`/Account/${link}`}
+            active={pathname.endsWith(link.toLowerCase())}
+          >
+            {link}
+          </NavLink>
+        </NavItem>
       ))}
       {currentUser && currentUser.role === "ADMIN" && (
-        <Link
-          href={`/Account/Users`}
-          className={`list-group-item border-0 ${
-            pathname.endsWith('Users') ? "active" : "text-danger"
-          }`}>
-          Users
-        </Link>
+        <NavItem>
+          <NavLink
+            as={Link}
+            href={`/Account/Users`}
+            active={pathname.endsWith('Users')}
+          >
+            Users
+          </NavLink>
+        </NavItem>
       )}
-    </div>
+    </Nav>
   );
 }
